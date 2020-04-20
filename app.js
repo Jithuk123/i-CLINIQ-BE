@@ -12,8 +12,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 //d added
 app.use(cors());
-
 app.use(logger('dev'));
+//cerats
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
