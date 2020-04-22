@@ -14,8 +14,8 @@ module.exports = {
       lastName: Sequelize.STRING,
       age: Sequelize.INTEGER,
       sex: Sequelize.STRING,
-      weight: Sequelize.INTEGER,
-      height: Sequelize.INTEGER,
+      weight: Sequelize.FLOAT,
+      height: Sequelize.FLOAT,
       phoneNumber: {
         type: Sequelize.STRING,
       },

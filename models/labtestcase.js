@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.UUID,
+        defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
       resultUrl: {
         allowNull: false,
@@ -20,21 +21,21 @@ module.exports = (sequelize, DataTypes) => {
       observationId: {
         type: DataTypes.UUID,
         references: {
-          model: 'observation',
+          model: 'observations',
           key: 'id',
         },
       },
       patientId: {
         type: DataTypes.UUID,
         references: {
-          model: 'patient',
+          model: 'patients',
           key: 'id',
         },
       },
       testId: {
         type: DataTypes.UUID,
         references: {
-          model: 'test',
+          model: 'tests',
           key: 'id',
         },
       },

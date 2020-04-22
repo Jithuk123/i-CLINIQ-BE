@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.UUID,
+        defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
 
       name: {

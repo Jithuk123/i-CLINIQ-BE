@@ -8,11 +8,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.UUID,
+        defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
       patientId: {
         type: DataTypes.UUID,
         references: {
-          model: 'patient',
+          model: 'patients',
           key: 'id',
         },
       },

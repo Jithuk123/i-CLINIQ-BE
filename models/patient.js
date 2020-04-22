@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.UUID,
+        defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
 
       firstName: {
@@ -18,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
 
       age: DataTypes.INTEGER,
       sex: DataTypes.STRING,
-      weight: DataTypes.INTEGER,
-      height: DataTypes.INTEGER,
+      weight: DataTypes.FLOAT,
+      height: DataTypes.FLOAT,
       phoneNumber: {
         type: DataTypes.STRING,
       },

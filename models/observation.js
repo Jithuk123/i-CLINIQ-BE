@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.UUID,
+        defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
       labTestRequired: {
         allowNull: true,
@@ -16,13 +17,13 @@ module.exports = (sequelize, DataTypes) => {
       appointmentId: {
         type: DataTypes.UUID,
         references: {
-          model: 'appointment',
+          model: 'appointmens',
           key: 'id',
         },
       },
       createdBy: {
         allowNull: false,
-        type: Sequelize.UUID,
+        type: DataTypes.UUID,
       },
     },
     { timestamps: true, paranoid: true }

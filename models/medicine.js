@@ -6,9 +6,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       id: {
         allowNull: false,
-
         primaryKey: true,
         type: DataTypes.UUID,
+        defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
       name: {
         type: DataTypes.STRING,
@@ -18,9 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   medicine.associate = function (models) {
-    models.medicine.belongsToMany(models.observation, {
-      through: models.observation_medicine,
-    });
+    // models.medicine.belongsToMany(models.observation, {
+    //   through: models.observation_medicine,
+    // });
   };
   return medicine;
 };

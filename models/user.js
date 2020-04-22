@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.UUID,
+        defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
 
       firstName: {
@@ -30,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       roleId: {
         type: DataTypes.UUID,
         references: {
-          model: 'role',
+          model: 'roles',
           key: 'id',
         },
       },
