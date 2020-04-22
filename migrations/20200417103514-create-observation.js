@@ -6,6 +6,7 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
+        defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
       labTestRequired: {
         allowNull: true,
@@ -22,9 +23,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.UUID,
       },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW'),
+      },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW'),
       },
       deletedAt: {
         allowNull: true,

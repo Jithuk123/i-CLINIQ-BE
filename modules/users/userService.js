@@ -26,7 +26,7 @@ const getSingleUser = async (req, res, next) => {
       });
     }
     const getSingleUserResponse = await userQueryBulider.getSingleUser(req);
-    res.status(HttpStatus.OK).send(getSingleUserResponse);
+    res.status(HttpStatus.ACCEPTED).send(getSingleUserResponse);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -47,7 +47,7 @@ const postUser = async (req, res, next) => {
     }
 
     const postUserResponse = await userQueryBulider.postuser(req);
-    res.status(HttpStatus.OK).send(postUserResponse);
+    res.status(HttpStatus.CREATED).send(postUserResponse);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {

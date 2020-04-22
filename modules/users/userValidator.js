@@ -44,7 +44,7 @@ const validate = (method) => {
       ];
     }
 
-    case 'getSingleUser': {
+    case 'getSingleUserCase': {
       return [
         param('userId')
           .exists()
@@ -98,6 +98,8 @@ const validate = (method) => {
           .withMessage('10 digits required'),
       ];
     }
+    default:
+      throw new Error();
   }
 };
 module.exports = {

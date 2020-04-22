@@ -4,9 +4,9 @@ module.exports = {
     return queryInterface.createTable('observation_medicines', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
 
       observationId: {
@@ -26,9 +26,15 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW'),
       },
       updatedAt: {
         allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW'),
+      },
+      deletedAt: {
+        allowNull: true,
         type: Sequelize.DATE,
       },
     });
