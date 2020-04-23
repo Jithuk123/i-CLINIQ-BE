@@ -1,17 +1,14 @@
 const DB = require('../../models');
 
-const getUser = async (res) => {
+const getUser = async (req) => {
   let query = {
     limit: req.query.limit || 10,
     page: req.query.page || 1,
-    sortKey: req.query.sortKey || 'name',
+    sortKey: req.query.sortKey || 'firstName',
     sortOrder: req.query.sortOrder || 'asc',
   };
 
   let userData = await DB.user.findAndCountAll({
-    where: {
-      roleId: res.params.roleId,
-    },
     offset: query.limit * (query.page - 1),
     limit: query.limit,
     order: [[query.sortKey, query.sortOrder]],
@@ -30,35 +27,37 @@ const getUser = async (res) => {
 };
 
 const postUser = async (req) => {
+  const role = await DB.role.findOne({ where: { name: req.body.roleId } });
+
   let newUserData = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
     password: req.body.password,
-    phoneNumber: req.body.phone_number,
-    roleId: req.body.roleId,
+    phoneNumber: req.body.phoneNumber,
+    roleId: role.id,
   };
-  newUser = await DB.users.create(newUserData).then((dbUser) => {
-    return DB.users.findByPk(dbUser.id);
-  });
+  newUser = await DB.user.create(newUserData);
   return newUser;
 };
 
-const getSingleUser = (req) =>
-  DB.users.findByPk(req.params.userId).then((result) => {
+const getSingleUser = async (req) => {
+  return DB.user.findByPk(req.params.userId).then((result) => {
     if (!result) {
       throw new Error('Not Found!!');
     } else {
-      return result;
+      return result.dataValues;
     }
   });
+};
 
 const deleteUser = async (req) => {
-  await DB.users.destroy({
+  await DB.user.destroy({
     where: {
       id: req.params.userId,
     },
   });
+  return 200;
 };
 
 const editUser = (req) =>

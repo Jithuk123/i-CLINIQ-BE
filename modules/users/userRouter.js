@@ -12,7 +12,7 @@ const {
   deleteUser,
 } = require('./userService');
 
-router.get('/:roleId', getUser);
+router.get('/', getUser);
 router.post('/', validate('postUserCase'), postUser);
 router.get('/:userId', validate('getSingleUserCase'), getSingleUser);
 router.put('/:userId', validate('editUserCase'), editUser);

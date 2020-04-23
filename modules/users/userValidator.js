@@ -15,7 +15,7 @@ const validate = (method) => {
         body('lastName')
           .exists()
           .withMessage('Name is required')
-          .isLength({ min: 5 })
+          .isLength({ min: 2 })
           .withMessage('minumum 2 characters required')
           .isLength({ max: 15 })
           .withMessage('maximum 15 characters allowed'),
@@ -40,7 +40,7 @@ const validate = (method) => {
         body('phoneNumber')
           .isLength({ min: 10 })
           .withMessage('10 digits required'),
-        param('roleId').exists().withMessage('RoleId reqired'),
+        body('roleId').exists().withMessage('RoleId reqired'),
       ];
     }
 

@@ -4,11 +4,11 @@ module.exports = (sequelize, DataTypes) => {
   const observation = sequelize.define(
     'observation',
     {
-      id: {
-        allowNull: false,
-        primaryKey: true,
-        type: DataTypes.UUID,
-      },
+      // id: {
+      //   allowNull: false,
+      //   primaryKey: true,
+      //   type: DataTypes.UUID,
+      // },
       labTestRequired: {
         allowNull: true,
         type: DataTypes.STRING,

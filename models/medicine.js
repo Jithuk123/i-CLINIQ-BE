@@ -4,11 +4,11 @@ module.exports = (sequelize, DataTypes) => {
   const medicine = sequelize.define(
     'medicine',
     {
-      id: {
-        allowNull: false,
-        primaryKey: true,
-        type: DataTypes.UUID,
-      },
+      // id: {
+      //   allowNull: false,
+      //   primaryKey: true,
+      //   type: DataTypes.UUID,
+      // },
       name: {
         type: DataTypes.STRING,
         allowNull: false,

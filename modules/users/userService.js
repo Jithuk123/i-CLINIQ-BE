@@ -5,7 +5,7 @@ const userQueryBulider = require('./userQueryBulider');
 
 const getUser = async (req, res, next) => {
   try {
-    const getUserResponse = await userQueryBulider.getuser(req);
+    const getUserResponse = await userQueryBulider.getUser(req);
     res.status(HttpStatus.OK).send(getUserResponse);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
@@ -41,12 +41,11 @@ const postUser = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(HttpStatus.UNPROCESSABLE_ENTITY).send({
+      return res.status(HttpStatus.UNPROCESSABLE_ENTITY).send({
         errors: errors.array(),
       });
     }
-
-    const postUserResponse = await userQueryBulider.postuser(req);
+    const postUserResponse = await userQueryBulider.postUser(req);
     res.status(HttpStatus.CREATED).send(postUserResponse);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
