@@ -37,19 +37,15 @@ const getSingleTest = async (req) => {
 };
 
 const postTest = async (req) => {
-  let newtest = {
-    name: req.body.name,
-  };
-  newUser = await DB.test.create(newtest);
-  return newtest;
+  return await DB.test.create({ name: req.body.name });
 };
 const deleteTest = async (req) => {
-  await DB.test.destroy({
-    where: {
-      id: req.params.testId,
-    },
+  return DB.test.findByPk(req.params.testId).then((test) => {
+    if (!test) {
+      throw new Error('Not Found');
+    }
+    return test.destroy();
   });
-  return 200;
 };
 
 const editTest = (req) =>

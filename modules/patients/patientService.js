@@ -1,21 +1,23 @@
-const testQueryBulider = require('./testCaseQueryBulider');
 const HttpStatus = require('http-status-codes');
-const { validationResult } = require('express-validator');
 
-const getTest = async (req, res) => {
+const { validationResult } = require('express-validator');
+const PatinetqueryBulider = require('./patientQueryBulider');
+
+const getPatient = async (req, res, next) => {
   try {
-    const getTestResponse = await testQueryBulider.getTest(req);
-    res.send(getTestResponse);
+    const getPatientResponse = await PatinetqueryBulider.getPatient(req);
+    res.status(HttpStatus.ACCEPTED).send(getPatientResponse);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
         message: error.message,
-        code: HttpStatus.code,
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
       },
     });
   }
 };
-const getSingleTest = async (req, res) => {
+
+const getSinglePatinet = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -23,20 +25,21 @@ const getSingleTest = async (req, res) => {
         errors: errors.array(),
       });
     }
-
-    const getSingleTestResponse = await testQueryBulider.getSingleTest(req);
-    res.send(getSingleTestResponse);
+    const getSinglePatinetResponse = await PatinetQueryBulider.getSinglePatinet(
+      req
+    );
+    res.status(HttpStatus.ACCEPTED).send(getSinglePatinetResponse);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
         message: error.message,
-        code: HttpStatus.code,
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
       },
     });
   }
 };
 
-const postTest = async (req, res) => {
+const postPatinet = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -44,20 +47,19 @@ const postTest = async (req, res) => {
         errors: errors.array(),
       });
     }
-
-    const postTestResponse = await testQueryBulider.postTest(req);
-    res.status(HttpStatus.CREATED).send(postTestResponse);
+    const postPatinetResponse = await PatinetQueryBulider.postPatinet(req);
+    res.status(HttpStatus.CREATED).send(postPatinetResponse);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
         message: error.message,
-        code: HttpStatus.code,
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
       },
     });
   }
 };
 
-const editTest = async (req, res) => {
+const editPatinet = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -66,19 +68,19 @@ const editTest = async (req, res) => {
       });
     }
 
-    const editTestResponse = await testQueryBulider.editTest(req);
-    res.status(HttpStatus.ACCEPTED).send(editTestResponse);
+    const putPatinetResponse = await PatinetQueryBulider.editPatinet(req);
+    res.status(HttpStatus.OK).send(putPatinetResponse);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
         message: error.message,
-        code: HttpStatus.code,
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
       },
     });
   }
 };
 
-const deleteTest = async (req, res) => {
+const deletePatinet = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -87,22 +89,21 @@ const deleteTest = async (req, res) => {
       });
     }
 
-    const deleteTestResponse = await testQueryBulider.deleteTest(req);
-    res.status(HttpStatus.NO_CONTENT).send();
+    const deletePatinetResponse = await PatinetQueryBulider.deletePatinet(req);
+    res.status(HttpStatus.OK).send(deletePatinetResponse);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
         message: error.message,
-        code: HttpStatus.code,
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
       },
     });
   }
 };
-
 module.exports = {
-  getTest,
-  getSingleTest,
-  postTest,
-  editTest,
-  deleteTest,
+  getSinglePatinet,
+  deletePatinet,
+  editPatinet,
+  postPatinet,
+  getPatient,
 };

@@ -30,19 +30,16 @@ const getUser = async (req) => {
 };
 
 const postUser = async (req) => {
-  var hash = bcrypt.hashSync(req.body.password, salt);
-  const role = await DB.role.findOne({ where: { name: req.body.roleId } });
+  var hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
-  let newUserData = {
+  return DB.user.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
-    password: hash,
+    password: hashedPassword,
     phoneNumber: req.body.phoneNumber,
-    roleId: role.id,
-  };
-  newUser = await DB.user.create(newUserData);
-  return newUser;
+    roleId: req.body.roleId,
+  });
 };
 
 const getSingleUser = async (req) => {
@@ -56,12 +53,12 @@ const getSingleUser = async (req) => {
 };
 
 const deleteUser = async (req) => {
-  await DB.user.destroy({
-    where: {
-      id: req.params.userId,
-    },
+  return DB.user.findByPk(req.params.userId).then((user) => {
+    if (!user) {
+      throw new Error('Not Found');
+    }
+    return user.destroy();
   });
-  return 200;
 };
 
 const editUser = (req) =>

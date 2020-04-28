@@ -3,9 +3,8 @@ HttpStatus = require('http-status-codes');
 
 const login = async (req, res, next) => {
   try {
-    console.log('here');
     const logins = await queryBulider.login(req);
-    res.status(HttpStatus.OK).send(logins);
+    res.send(logins);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {

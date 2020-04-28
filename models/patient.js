@@ -4,12 +4,6 @@ module.exports = (sequelize, DataTypes) => {
   const patient = sequelize.define(
     'patient',
     {
-      // id: {
-      //   allowNull: false,
-      //   primaryKey: true,
-      //   type: DataTypes.UUID,
-      // },
-
       firstName: {
         type: DataTypes.STRING,
         allowNull: false,

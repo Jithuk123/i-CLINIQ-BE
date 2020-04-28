@@ -31,25 +31,21 @@ const getSingleMedicine = async (req) => {
     if (!result) {
       throw new Error('Not Found!!');
     } else {
-      return result.dataValues;
+      return result;
     }
   });
 };
 
 const postMedicine = async (req) => {
-  let newMedicine = {
-    name: req.body.name,
-  };
-  newUser = await DB.medicine.create(newMedicine);
-  return newMedicine;
+  return await DB.medicine.create({ name: req.body.name });
 };
 const deleteMedicine = async (req) => {
-  await DB.medicine.destroy({
-    where: {
-      id: req.params.medicineId,
-    },
+  return DB.medicine.findByPk(req.params.medicineId).then((medicine) => {
+    if (!medicine) {
+      throw new Error('Not Found');
+    }
+    return medicine.destroy();
   });
-  return 200;
 };
 
 const editMedicine = (req) =>

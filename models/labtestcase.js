@@ -4,11 +4,6 @@ module.exports = (sequelize, DataTypes) => {
   const labTestcase = sequelize.define(
     'labTestcase',
     {
-      // id: {
-      //   allowNull: false,
-      //   primaryKey: true,
-      //   type: DataTypes.UUID,
-      // },
       resultUrl: {
         allowNull: false,
         type: DataTypes.STRING,

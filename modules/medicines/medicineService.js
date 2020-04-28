@@ -4,8 +4,8 @@ const { validationResult } = require('express-validator');
 
 const getMedicine = async (req, res, next) => {
   try {
-    const getMedicineResponse = await medicineQueryBulider.getMedicine(req);
-    res.status(HttpStatus.OK).send(getMedicineResponse);
+    const medicine = await medicineQueryBulider.getMedicine(req);
+    res.send(medicine);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -17,10 +17,8 @@ const getMedicine = async (req, res, next) => {
 };
 const getSingleMedicine = async (req, res, next) => {
   try {
-    const getSingleMedicineResponse = await medicineQueryBulider.getSingleMedicine(
-      req
-    );
-    res.status(HttpStatus.OK).send(getSingleMedicineResponse);
+    const medicineList = await medicineQueryBulider.getSingleMedicine(req);
+    res.send(medicineList);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -38,9 +36,8 @@ const postMedicine = async (req, res, next) => {
         errors: errors.array(),
       });
     }
-    const postMedicineResponse = await medicineQueryBulider.postMedicine(req);
-    console.log(req, 'here');
-    res.status(HttpStatus.CREATED).send(postMedicineResponse);
+    const createdMedinice = await medicineQueryBulider.postMedicine(req);
+    res.status(HttpStatus.CREATED).send(createdMedinice);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -60,8 +57,8 @@ const editMedicine = async (req, res, next) => {
       });
     }
 
-    const putMedicineResponse = await medicineQueryBulider.editMedicine(req);
-    res.status(HttpStatus.OK).send(putMedicineResponse);
+    const editedMedicine = await medicineQueryBulider.editMedicine(req);
+    res.send(editedMedicine);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -81,10 +78,8 @@ const deleteMedicine = async (req, res, next) => {
       });
     }
 
-    const deleteMedicineResponse = await medicineQueryBulider.deleteMedicine(
-      req
-    );
-    res.status(HttpStatus.OK).send(deleteMedicineResponse);
+    await medicineQueryBulider.deleteMedicine(req);
+    res.status(HttpStatus.NO_CONTENT).send();
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {

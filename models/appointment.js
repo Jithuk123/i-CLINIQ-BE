@@ -4,11 +4,6 @@ module.exports = (sequelize, DataTypes) => {
   const appointment = sequelize.define(
     'appointment',
     {
-      // id: {
-      //   allowNull: false,
-      //   primaryKey: true,
-      //   type: DataTypes.UUID,
-      // },
       patientId: {
         type: DataTypes.UUID,
         references: {

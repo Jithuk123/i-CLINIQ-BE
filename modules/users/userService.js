@@ -5,8 +5,8 @@ const userQueryBulider = require('./userQueryBulider');
 
 const getUser = async (req, res, next) => {
   try {
-    const getUserResponse = await userQueryBulider.getUser(req);
-    res.status(HttpStatus.OK).send(getUserResponse);
+    const UserList = await userQueryBulider.getUser(req);
+    res.send(UserList);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -25,8 +25,8 @@ const getSingleUser = async (req, res, next) => {
         errors: errors.array(),
       });
     }
-    const getSingleUserResponse = await userQueryBulider.getSingleUser(req);
-    res.status(HttpStatus.ACCEPTED).send(getSingleUserResponse);
+    const getSingleUser = await userQueryBulider.getSingleUser(req);
+    res.send(getSingleUser);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -66,8 +66,8 @@ const editUser = async (req, res, next) => {
       });
     }
 
-    const putUserResponse = await userQueryBulider.editUser(req);
-    res.status(HttpStatus.OK).send(putUserResponse);
+    const editUser = await userQueryBulider.editUser(req);
+    res.status(HttpStatus.ACCEPTED).send(editUser);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -88,7 +88,7 @@ const deleteUser = async (req, res, next) => {
     }
 
     const deleteUserResponse = await userQueryBulider.deleteUser(req);
-    res.status(HttpStatus.OK).send(deleteUserResponse);
+    res.status(HttpStatus.NO_CONTENT).send();
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {

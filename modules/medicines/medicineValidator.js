@@ -24,7 +24,7 @@ const validate = (method) => {
             medicine.findByPk(value).then((medicineData) => {
               if (!medicineData) {
                 {
-                  throw new Error('User does not exist!!');
+                  throw new Error('Medicine does not exist!!');
                 }
               }
             })
@@ -39,7 +39,7 @@ const validate = (method) => {
             medicine.findByPk(value).then((medicineData) => {
               if (!medicineData) {
                 {
-                  throw new Error('User does not exist!!');
+                  throw new Error('Medicine does not exist!!');
                 }
               }
             })
