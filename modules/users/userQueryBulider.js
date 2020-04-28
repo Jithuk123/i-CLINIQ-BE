@@ -1,4 +1,7 @@
 const DB = require('../../models');
+const bcrypt = require('bcryptjs');
+
+var salt = bcrypt.genSaltSync(10);
 
 const getUser = async (req) => {
   let query = {
@@ -27,13 +30,14 @@ const getUser = async (req) => {
 };
 
 const postUser = async (req) => {
+  var hash = bcrypt.hashSync(req.body.password, salt);
   const role = await DB.role.findOne({ where: { name: req.body.roleId } });
 
   let newUserData = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
-    password: req.body.password,
+    password: hash,
     phoneNumber: req.body.phoneNumber,
     roleId: role.id,
   };

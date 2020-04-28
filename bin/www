@@ -9,7 +9,6 @@ var debug = require('debug')('be-health-consultation:server');
 var http = require('http');
 // a added  2 lines
 var models = require('../models');
-
 require('dotenv').config();
 
 /**
@@ -22,7 +21,7 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-// badded  5 lines
+// b added  5 lines
 var server = http.createServer(app);
 
 server.listen(port, function () {
