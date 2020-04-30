@@ -25,11 +25,16 @@ module.exports = (sequelize, DataTypes) => {
     { timestamps: true, paranoid: true }
   );
   patient.beforeCreate((patient) => (patient.id = uuid()));
+
   patient.associate = function (models) {
-    patient.hasMany(models.patient),
-      { foreignKey: 'patientId', as: 'appointment_patientId' };
-    patient.hasMany(models.patient),
-      { foreignKey: 'patientId', as: 'labtestCase_patientId' };
+    patient.hasMany(models.appointment, {
+      foreignKey: 'patientId',
+      as: 'appointment_patientId'
+    });
+    patient.hasMany(models.labTestcase, {
+      foreignKey: 'patientId',
+      as: 'labtestCase_patientId'
+    });
   };
   return patient;
 };

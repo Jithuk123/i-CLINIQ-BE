@@ -45,15 +45,15 @@ module.exports = (sequelize, DataTypes) => {
     labTestcase.belongsTo(models.observation, {
       foreignKey: 'observationId',
       onDelete: 'CASCADE',
-    }),
-      labTestcase.belongsTo(models.patient, {
-        foreignKey: 'patientId',
-        onDelete: 'CASCADE',
-      }),
-      labTestcase.belongsTo(models.test, {
-        foreignKey: 'testId',
-        onDelete: 'CASCADE',
-      });
+    });
+    labTestcase.belongsTo(models.patient, {
+      foreignKey: 'patientId',
+      onDelete: 'CASCADE',
+    });
+    labTestcase.belongsTo(models.test, {
+      foreignKey: 'testId',
+      onDelete: 'CASCADE',
+    });
   };
   return labTestcase;
 };
