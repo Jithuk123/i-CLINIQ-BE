@@ -7,23 +7,24 @@ const { authorization } = require('../auth/authorizationMiddleware');
 //auth
 
 const {
-  getUser,
-  postUser,
+  getUserList,
+  createUser,
   getSingleUser,
   editUser,
   deleteUser,
 } = require('./userService');
 
-router.get('/', authentication, authorization('Admin'), getUser);
+router.get('/', authentication, authorization('Admin', 'User'), getUserList);
 router.post(
   '/',
 
   validate('postUserCase'),
-  postUser
+  createUser
 );
 router.get(
   '/:userId',
   authentication,
+  authorization('Admin'),
 
   validate('getSingleUserCase'),
   getSingleUser

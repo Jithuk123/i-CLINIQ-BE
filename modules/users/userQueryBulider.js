@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 var salt = bcrypt.genSaltSync(10);
 
-const getUser = async (req) => {
+const getUserList = async (req) => {
   let query = {
     limit: req.query.limit || 10,
     page: req.query.page || 1,
@@ -29,7 +29,7 @@ const getUser = async (req) => {
   };
 };
 
-const postUser = async (req) => {
+const createUser = async (req) => {
   var hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
   return DB.user.create({
@@ -47,7 +47,7 @@ const getSingleUser = async (req) => {
     if (!result) {
       throw new Error('Not Found!!');
     } else {
-      return result.dataValues;
+      return result;
     }
   });
 };
@@ -75,9 +75,9 @@ const editUser = (req) =>
     });
   });
 module.exports = {
-  getUser,
+  getUserList,
   getSingleUser,
-  postUser,
+  createUser,
   editUser,
   deleteUser,
 };

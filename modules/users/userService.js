@@ -3,9 +3,9 @@ const HttpStatus = require('http-status-codes');
 const { validationResult } = require('express-validator');
 const userQueryBulider = require('./userQueryBulider');
 
-const getUser = async (req, res, next) => {
+const getUserList = async (req, res, next) => {
   try {
-    const UserList = await userQueryBulider.getUser(req);
+    const UserList = await userQueryBulider.getUserList(req);
     res.send(UserList);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
@@ -37,7 +37,7 @@ const getSingleUser = async (req, res, next) => {
   }
 };
 
-const postUser = async (req, res, next) => {
+const createUser = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -45,8 +45,8 @@ const postUser = async (req, res, next) => {
         errors: errors.array(),
       });
     }
-    const postUserResponse = await userQueryBulider.postUser(req);
-    res.status(HttpStatus.CREATED).send(postUserResponse);
+    const newUser = await userQueryBulider.createUser(req);
+    res.status(HttpStatus.CREATED).send(newUser);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -100,9 +100,9 @@ const deleteUser = async (req, res, next) => {
 };
 
 module.exports = {
-  getUser,
+  getUserList,
   getSingleUser,
-  postUser,
+  createUser,
   editUser,
   deleteUser,
 };

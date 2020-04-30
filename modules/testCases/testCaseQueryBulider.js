@@ -39,7 +39,7 @@ const getSingleTest = async (req) => {
 const postTest = async (req) => {
   return await DB.test.create({ name: req.body.name });
 };
-const deleteTest = async (req) => {
+const deleteTest = (req) => {
   return DB.test.findByPk(req.params.testId).then((test) => {
     if (!test) {
       throw new Error('Not Found');

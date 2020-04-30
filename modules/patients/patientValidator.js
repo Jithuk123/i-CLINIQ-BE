@@ -51,9 +51,30 @@ const validate = (method) => {
         body('phoneNumber')
           .isLength({ min: 10 })
           .isLength({ max: 10 })
-          .withMessage('10 digits required'),
+          .withMessage('10 digits required')
 
-        body('createdBy').exists().withMessage('RoleId reqired'),
+          .custom((value) =>
+            patient
+              .findOne({ where: { phoneNumber: value } })
+              .then((patient) => {
+                if (patient) {
+                  throw new Error('Patient already Exist');
+                }
+              })
+          ),
+
+        // .custom((value) => {
+        //   return patient
+        //     .findOne({ where: { phoneNumber: value } })
+        //     .then((user) => {
+        //       console.log(user, '123454');
+        //       if (user) {
+        //         return Promise.reject('E-mail already in use');
+        //       }
+        //     });
+        // }),
+
+        body('userId').exists().withMessage('userId reqired'),
       ];
     }
 

@@ -1,12 +1,12 @@
 const HttpStatus = require('http-status-codes');
 
 const { validationResult } = require('express-validator');
-const PatinetqueryBulider = require('./patientQueryBulider');
+const patientQueryBulider = require('./patientQueryBulider');
 
-const getPatient = async (req, res, next) => {
+const patientList = async (req, res, next) => {
   try {
-    const getPatientResponse = await PatinetqueryBulider.getPatient(req);
-    res.status(HttpStatus.ACCEPTED).send(getPatientResponse);
+    const patientList = await patientQueryBulider.patientList(req);
+    res.send(patientList);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -17,7 +17,7 @@ const getPatient = async (req, res, next) => {
   }
 };
 
-const getSinglePatinet = async (req, res, next) => {
+const getSinglePatient = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -25,10 +25,10 @@ const getSinglePatinet = async (req, res, next) => {
         errors: errors.array(),
       });
     }
-    const getSinglePatinetResponse = await PatinetQueryBulider.getSinglePatinet(
+    const getSinglePatinetResponse = await patientQueryBulider.getSinglePatient(
       req
     );
-    res.status(HttpStatus.ACCEPTED).send(getSinglePatinetResponse);
+    res.send(getSinglePatinetResponse);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -39,7 +39,7 @@ const getSinglePatinet = async (req, res, next) => {
   }
 };
 
-const postPatinet = async (req, res, next) => {
+const createPatient = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -47,8 +47,8 @@ const postPatinet = async (req, res, next) => {
         errors: errors.array(),
       });
     }
-    const postPatinetResponse = await PatinetQueryBulider.postPatinet(req);
-    res.status(HttpStatus.CREATED).send(postPatinetResponse);
+    const createPatient = await patientQueryBulider.createPatient(req);
+    res.status(HttpStatus.CREATED).send(createPatient);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -59,7 +59,7 @@ const postPatinet = async (req, res, next) => {
   }
 };
 
-const editPatinet = async (req, res, next) => {
+const editPatient = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -68,8 +68,8 @@ const editPatinet = async (req, res, next) => {
       });
     }
 
-    const putPatinetResponse = await PatinetQueryBulider.editPatinet(req);
-    res.status(HttpStatus.OK).send(putPatinetResponse);
+    const putPatinetResponse = await patientQueryBulider.editPatient(req);
+    res.status(HttpStatus.ACCEPTED).send(putPatinetResponse);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -80,7 +80,7 @@ const editPatinet = async (req, res, next) => {
   }
 };
 
-const deletePatinet = async (req, res, next) => {
+const deletePatient = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -88,9 +88,8 @@ const deletePatinet = async (req, res, next) => {
         errors: errors.array(),
       });
     }
-
-    const deletePatinetResponse = await PatinetQueryBulider.deletePatinet(req);
-    res.status(HttpStatus.OK).send(deletePatinetResponse);
+    await patientQueryBulider.deletePatient(req);
+    res.status(HttpStatus.NO_CONTENT).send();
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -101,9 +100,9 @@ const deletePatinet = async (req, res, next) => {
   }
 };
 module.exports = {
-  getSinglePatinet,
-  deletePatinet,
-  editPatinet,
-  postPatinet,
-  getPatient,
+  getSinglePatient,
+  deletePatient,
+  editPatient,
+  createPatient,
+  patientList,
 };

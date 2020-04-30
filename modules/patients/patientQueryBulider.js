@@ -1,6 +1,6 @@
 const DB = require('../../models');
 
-const getPatient = async (req) => {
+const patientList = async (req) => {
   let query = {
     limit: req.query.limit || 10,
     page: req.query.page || 1,
@@ -37,23 +37,48 @@ const getSinglePatient = async (req) => {
 };
 
 const deletePatient = async (req) => {
-  await DB.patient.destroy({
-    where: {
-      id: req.params.patientId,
-    },
+  return DB.patient.findByPk(req.params.patientId).then((result) => {
+    if (!result) {
+      throw new Error('Not Found!!');
+    } else {
+      return result.destroy();
+    }
   });
-  return 200;
 };
 
-const postPatient = async (req) => {
-  let newPatientData = {
+const createPatient = async (req) => {
+  // const data = await DB.patient.findOne(req.body.phoneNumber);
+  // console.log(data, 'heteeee');
+
+  return await DB.patient.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    email: req.body.email,
-    password: hash,
+    age: req.body.age,
+    height: req.body.height,
+    weight: req.body.weight,
     phoneNumber: req.body.phoneNumber,
-    roleId: role.id,
-  };
-  newUser = await DB.user.create(newUserData);
-  return newUser;
+    createdBy: req.body.userId,
+  });
+};
+
+const editPatinet = (req) =>
+  DB.patient.findByPk(req.params.patientId).then((result) => {
+    if (!result) {
+      throw new Error('NOT FOUND');
+    }
+    return result.update({
+      lastName: req.body.lastName,
+      age: req.body.age,
+      height: req.body.height,
+      weight: req.body.weight,
+      phoneNumber: req.body.phoneNumber,
+    });
+  });
+
+module.exports = {
+  editPatinet,
+  createPatient,
+  deletePatient,
+  getSinglePatient,
+  patientList,
 };
