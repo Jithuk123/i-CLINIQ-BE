@@ -62,19 +62,6 @@ const validate = (method) => {
                 }
               })
           ),
-
-        // .custom((value) => {
-        //   return patient
-        //     .findOne({ where: { phoneNumber: value } })
-        //     .then((user) => {
-        //       console.log(user, '123454');
-        //       if (user) {
-        //         return Promise.reject('E-mail already in use');
-        //       }
-        //     });
-        // }),
-
-        body('userId').exists().withMessage('userId reqired'),
       ];
     }
 
