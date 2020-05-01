@@ -4,17 +4,11 @@ const validate = (method) => {
   switch (method) {
     case 'postAppointmentCase': {
       return [
-        body('patinetId')
+        body('patientId')
           .exists()
-          .withMessage('patinetId is required')
+          .withMessage('patientId is required')
           .isUUID()
           .withMessage('Patient Id should be UUID'),
-
-        body('createdBy')
-          .exists()
-          .withMessage('CreatedBy is required')
-          .isString()
-          .withMessage('Enter a valid format for createdBy'),
       ];
     }
     case 'singleAppointmentCase': {
@@ -25,7 +19,7 @@ const validate = (method) => {
             appointment.findByPk(value).then((appointmentData) => {
               if (!appointmentData) {
                 {
-                  throw new Error('appointment does not exist!!');
+                  throw new Error('Appointment Id does not exist!!');
                 }
               }
             })
@@ -40,7 +34,7 @@ const validate = (method) => {
             appointment.findByPk(value).then((appointmentData) => {
               if (!appointmentData) {
                 {
-                  throw new Error('appointment does not exist!!');
+                  throw new Error('Appointment Id does not exist!!');
                 }
               }
             })

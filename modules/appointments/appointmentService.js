@@ -1,5 +1,5 @@
 const HttpStatus = require('http-status-codes');
-const appointmentQueryBulider = require('./appointmentQueryBulider');
+const appointmentQueryBulider = require('./appointmentQueryBuilder');
 const { validationResult } = require('express-validator');
 
 const appointmentList = async (req, res, next) => {
@@ -17,10 +17,10 @@ const appointmentList = async (req, res, next) => {
 };
 const getSingleAppointment = async (req, res, next) => {
   try {
-    const appointmentList = await appointmentQueryBulider.getSingleAppointment(
+    const getAppointmentList = await appointmentQueryBulider.getSingleAppointment(
       req
     );
-    res.send(appointmentList);
+    res.send(getAppointmentList);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {

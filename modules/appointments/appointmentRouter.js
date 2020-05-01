@@ -2,6 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 const { validate } = require('./appointmentValidator');
+const { authentication } = require('../auth/authenticationMiddleware');
+const { authorization } = require('../auth/authorizationMiddleware');
 
 const {
   appointmentList,
@@ -13,14 +15,19 @@ const {
 router.get('/', appointmentList);
 router.get(
   '/:appointmentId',
-  validate('SingleAppointmentCase'),
+  validate('singleAppointmentCase'),
   getSingleAppointment
 );
-router.post('/', validate('postAppointmentCase'), createAppointment);
+router.post(
+  '/',
+  authentication,
+  validate('postAppointmentCase'),
+  createAppointment
+);
 
 router.delete(
   '/:appointmentId',
-  validate('editAppointmentCase'),
+  validate('deleteAppointmentCase'),
   deleteAppointment
 );
 module.exports = router;

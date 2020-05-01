@@ -39,10 +39,10 @@ const getSingleAppointment = async (req) => {
 const createAppointment = async (req) => {
   return await DB.appointment.create({
     patientId: req.body.patientId,
-    createBy: req.body.createBy,
+    createdBy: req.decode.userId,
   });
 };
-const deleteappointment = async (req) => {
+const deleteAppointment = async (req) => {
   return DB.appointment
     .findByPk(req.params.appointmentId)
     .then((appointment) => {
@@ -57,5 +57,5 @@ module.exports = {
   getSingleAppointment,
   appointmentList,
   createAppointment,
-  deleteappointment,
+  deleteAppointment,
 };
