@@ -3,7 +3,6 @@ const httpStatus = require('http-status-codes');
 const DB = require('../../models');
 
 authentication = async (req, res, next) => {
-  console.log('here', req.headers['x-api-token']);
   const apiToken = req.headers['x-api-token'];
   if (!apiToken) {
     return res

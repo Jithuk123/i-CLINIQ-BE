@@ -40,7 +40,6 @@ const validate = (method) => {
         body('phoneNumber')
           .isLength({ min: 10 })
           .withMessage('10 digits required'),
-        body('roleId').exists().withMessage('RoleId reqired'),
       ];
     }
 

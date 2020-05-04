@@ -38,7 +38,7 @@ const createUser = async (req) => {
     email: req.body.email,
     password: hashedPassword,
     phoneNumber: req.body.phoneNumber,
-    roleId: req.body.roleId,
+    roleId: req.decode.roleId,
   });
 };
 
