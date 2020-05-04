@@ -23,19 +23,14 @@ module.exports = (sequelize, DataTypes) => {
   );
   appointment.beforeCreate((appointment) => (appointment.id = uuid()));
   appointment.associate = function (models) {
-    appointment.hasMany(models.observation, {
+    appointment.belongsTo(models.observation, {
       foreignKey: 'appointmentId',
-      as: 'observations_appointmentId',
     });
 
     appointment.belongsTo(models.patient, {
       foreignKey: 'patientId',
       onDelete: 'CASCADE',
     });
-    // appointment.belongsTo(models.user, {
-    //   foreignKey: 'userId',
-    //   onDelete: 'CASCADE',
-    // });
   };
   return appointment;
 };

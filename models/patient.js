@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       height: DataTypes.FLOAT,
       phoneNumber: {
         type: DataTypes.STRING,
+        unique: true,
       },
       createdBy: {
         type: DataTypes.UUID,

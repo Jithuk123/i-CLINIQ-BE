@@ -14,7 +14,7 @@ const login = async (req) => {
       if (!user) {
         throw new Error('User not found');
       }
-      if (!bcrypt.compareSync(req.body.password, user.password)) {
+      if (!bcrypt.compare(req.body.password, user.password)) {
         throw new Error('Wrong user credentials');
       }
       const token = jwt.sign(
