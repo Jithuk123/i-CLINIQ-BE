@@ -24,26 +24,13 @@ module.exports = (sequelize, DataTypes) => {
   );
   observation.beforeCreate((observation) => (observation.id = uuid()));
   observation.associate = function (models) {
+    observation.belongsTo(models.appointment);
+    observation.hasMany(models.labTestcase);
     observation.belongsToMany(models.medicine, {
       foreignKey: 'observation_id',
-      through: 'observation_medicine',
+      through: 'observation_medicines',
       as: 'observationMedicine',
-    }),
-      observation.belongsTo(
-        models.appointment,
-        {
-          foreignKey: 'appointmentId',
-          onDelete: 'CASCADE',
-        },
-        observation.hasMany(models.observation),
-        {
-          foreignKey: 'observationId',
-          as: 'appointment_observationMedicineId',
-        },
-
-        observation.hasMany(models.observation),
-        { foreignKey: 'observationId', as: 'labtestCase_observationId' }
-      );
+    })
   };
   return observation;
 };

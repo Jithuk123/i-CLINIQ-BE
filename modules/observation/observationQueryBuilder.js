@@ -31,7 +31,7 @@ const getSingleObservation = async (req) => {
     if (!result) {
       throw new Error('Not Found!!');
     } else {
-      return result.dataValues;
+      return result;
     }
   });
 };

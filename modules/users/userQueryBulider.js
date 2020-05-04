@@ -32,7 +32,7 @@ const getUserList = async (req) => {
 const createUser = async (req) => {
   //asynchronous encrypting
   const salt = await bcrypt.genSalt(10);
-  var hashedPassword = bcrypt.hash(req.body.password, salt);
+  var hashedPassword = await bcrypt.hash(req.body.password, salt);
 
   return DB.user.create({
     firstName: req.body.firstName,
