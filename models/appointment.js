@@ -12,8 +12,11 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       createdBy: {
-        allowNull: false,
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
       },
     },
     { timestamps: true, paranoid: true }
@@ -26,9 +29,13 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     appointment.belongsTo(models.patient, {
-      foreignKey: 'patinetId',
+      foreignKey: 'patientId',
       onDelete: 'CASCADE',
     });
+    // appointment.belongsTo(models.user, {
+    //   foreignKey: 'userId',
+    //   onDelete: 'CASCADE',
+    // });
   };
   return appointment;
 };
