@@ -51,6 +51,7 @@ const createPatient = async (req) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     age: req.body.age,
+    sex: req.body.sex,
     height: req.body.height,
     weight: req.body.weight,
     phoneNumber: req.body.phoneNumber,
@@ -58,7 +59,7 @@ const createPatient = async (req) => {
   });
 };
 
-const editPatinet = (req) =>
+const editPatient = (req) =>
   DB.patient.findByPk(req.params.patientId).then((result) => {
     if (!result) {
       throw new Error('NOT FOUND');
@@ -73,7 +74,7 @@ const editPatinet = (req) =>
   });
 
 module.exports = {
-  editPatinet,
+  editPatient,
   createPatient,
   deletePatient,
   getSinglePatient,

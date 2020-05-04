@@ -29,21 +29,10 @@ module.exports = (sequelize, DataTypes) => {
       through: 'observation_medicine',
       as: 'observationMedicine',
     }),
-      observation.belongsTo(
-        models.appointment,
-        {
-          foreignKey: 'appointmentId',
-          onDelete: 'CASCADE',
-        },
-        observation.hasMany(models.observation),
-        {
-          foreignKey: 'observationId',
-          as: 'appointment_observationMedicineId',
-        },
-
-        observation.hasMany(models.observation),
-        { foreignKey: 'observationId', as: 'labtestCase_observationId' }
-      );
+      observation.belongsTo(models.appointment, {
+        foreignKey: 'appointmentId',
+        onDelete: 'CASCADE',
+      });
   };
   return observation;
 };

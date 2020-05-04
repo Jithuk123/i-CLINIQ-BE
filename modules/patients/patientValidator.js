@@ -62,8 +62,6 @@ const validate = (method) => {
                 }
               })
           ),
-
-        body('userId').exists().withMessage('userId reqired'),
       ];
     }
 
