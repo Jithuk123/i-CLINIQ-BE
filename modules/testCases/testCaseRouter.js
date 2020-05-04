@@ -8,7 +8,7 @@ const {
   postTest,
   editTest,
   deleteTest,
-} = require('./testCaseServices');
+} = require('./testCaseService');
 
 router.get('/', getTest);
 router.get('/:testId', validate('getSingleTestCase'), getSingleTest);

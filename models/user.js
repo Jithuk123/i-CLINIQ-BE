@@ -40,11 +40,6 @@ module.exports = (sequelize, DataTypes) => {
   user.beforeCreate((user) => (user.id = uuid()));
 
   user.associate = function (models) {
-    // user.hasMany(models.appointment, {
-    //   foreignKey: 'userId',
-    //   as: 'appointment_userId',
-    // });
-
     models.user.belongsTo(models.role, {
       foreignKey: 'roleId',
       onDelete: 'CASCADE',

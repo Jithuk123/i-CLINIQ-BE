@@ -47,9 +47,6 @@ const deletePatient = async (req) => {
 };
 
 const createPatient = async (req) => {
-  // const data = await DB.patient.findOne(req.body.phoneNumber);
-  // console.log(data, 'heteeee');
-
   return await DB.patient.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -57,7 +54,7 @@ const createPatient = async (req) => {
     height: req.body.height,
     weight: req.body.weight,
     phoneNumber: req.body.phoneNumber,
-    createdBy: req.body.userId,
+    createdBy: req.decode.userId,
   });
 };
 
