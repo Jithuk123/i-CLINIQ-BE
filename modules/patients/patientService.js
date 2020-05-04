@@ -68,8 +68,8 @@ const editPatient = async (req, res, next) => {
       });
     }
 
-    const putPatinetResponse = await patientQueryBulider.editPatient(req);
-    res.status(HttpStatus.ACCEPTED).send(putPatinetResponse);
+    const editPatinet = await patientQueryBulider.editPatient(req);
+    res.status(HttpStatus.ACCEPTED).send(editPatinet);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {

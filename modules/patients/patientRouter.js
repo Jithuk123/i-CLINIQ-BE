@@ -13,10 +13,25 @@ const {
   deletePatient,
 } = require('./patientService');
 
-router.get('/', patientList);
-router.get('/:patientId', validate('getSinglePatientCase'), getSinglePatient);
-router.post('/', validate('postPatientCase'), createPatient);
-router.put('/:patientId', validate('editPatientCase'), editPatient);
-router.delete('/:patientId', validate('deletePatientCase'), deletePatient);
+router.get('/', authentication, patientList);
+router.get(
+  '/:patientId',
+  authentication,
+  validate('getSinglePatientCase'),
+  getSinglePatient
+);
+router.post('/', authentication, validate('postPatientCase'), createPatient);
+router.put(
+  '/:patientId',
+  authentication,
+  validate('editPatientCase'),
+  editPatient
+);
+router.delete(
+  '/:patientId',
+  authentication,
+  validate('deletePatientCase'),
+  deletePatient
+);
 
 module.exports = router;

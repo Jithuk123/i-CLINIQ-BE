@@ -20,8 +20,10 @@ module.exports = (sequelize, DataTypes) => {
   );
   appointment.beforeCreate((appointment) => (appointment.id = uuid()));
   appointment.associate = function (models) {
-    appointment.hasMany(models.appointment,
-      { foreignKey: 'appointmentId', as: 'observations_appointmentId' });
+    appointment.hasMany(models.observation, {
+      foreignKey: 'appointmentId',
+      as: 'observations_appointmentId',
+    });
 
     appointment.belongsTo(models.patient, {
       foreignKey: 'patinetId',
