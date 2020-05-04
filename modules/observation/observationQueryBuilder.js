@@ -4,7 +4,7 @@ const observationList = async (req) => {
   let query = {
     limit: req.query.limit || 10,
     page: req.query.page || 1,
-    sortKey: req.query.sortKey || 'observationId',
+    sortKey: req.query.sortKey || 'appointmentId',
     sortOrder: req.query.sortOrder || 'asc',
   };
 
@@ -31,7 +31,7 @@ const getSingleObservation = async (req) => {
     if (!result) {
       throw new Error('Not Found!!');
     } else {
-      return result.dataValues;
+      return result;
     }
   });
 };

@@ -18,7 +18,13 @@ router.get(
   validate('getSingleObservationCase'),
   getSingleObservation
 );
-router.post('/', validate('postObservationCase'), createObservation);
+router.post(
+  '/',
+  authentication,
+  authorization('Admin'),
+  validate('postObservationCase'),
+  createObservation
+);
 router.delete(
   '/:observationId',
   validate('deleteObservationCase'),

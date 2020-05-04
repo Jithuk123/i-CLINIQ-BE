@@ -4,11 +4,18 @@ const validate = (method) => {
   switch (method) {
     case 'postObservationCase': {
       return [
-        body('appointment_id')
+        body('appointmentId')
           .exists()
           .withMessage('appointment_id is required')
-          .exists('createdBy')
-          .withMessage('createdBy is required'),
+          .custom((value) =>
+            observation
+              .findOne({ where: { appointmentId: value } })
+              .then((medicine) => {
+                if (medicine) {
+                  throw new Error('appointment ID already exist');
+                }
+              })
+          ),
       ];
     }
 
