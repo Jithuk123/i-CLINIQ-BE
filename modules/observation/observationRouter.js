@@ -2,8 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 const { validate } = require('./observationValidator');
-const { authentication } = require('../auth/authenticationMiddleware');
-const { authorization } = require('../auth/authorizationMiddleware');
+const {
+  authentication,
+} = require('../../middleware/auth/authenticationMiddleware');
+const {
+  authorization,
+} = require('../../middleware/auth/authorizationMiddleware');
 
 const {
   observationList,

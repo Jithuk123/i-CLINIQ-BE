@@ -7,6 +7,8 @@ const appointmentRouter = require('./modules/appointments/appointmentRouter');
 const observationRouter = require('./modules/observation/observationRouter');
 const labTestCaseRouter = require('./modules/labTestCase/labTestCaseRouter');
 
+const error = require('./middleware/error/error');
+
 module.exports = (app) => {
   app.use('/api/login', accountRouter);
   app.use('/api/users', userRouter);
@@ -16,4 +18,6 @@ module.exports = (app) => {
   app.use('/api/appointments', appointmentRouter);
   app.use('/api/observations', observationRouter);
   app.use('/api/labResults', labTestCaseRouter);
+
+  app.use(error);
 };
