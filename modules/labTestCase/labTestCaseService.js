@@ -1,11 +1,11 @@
 const HttpStatus = require('http-status-codes');
-const queryBulider = require('./observationQueryBuilder');
+const queryBulider = require('./labTestCaseQueryBulider');
 const { validationResult } = require('express-validator');
 
-const observationList = async (req, res, next) => {
+const labReportList = async (req, res, next) => {
   try {
-    const observations = await queryBulider.observationList(req);
-    res.send(observations);
+    const labReports = await queryBulider.labReportList(req);
+    res.send(labReports);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -16,7 +16,7 @@ const observationList = async (req, res, next) => {
   }
 };
 
-const getSingleObservation = async (req, res, next) => {
+const singleLabReport = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -24,8 +24,8 @@ const getSingleObservation = async (req, res, next) => {
         errors: errors.array(),
       });
     }
-    const SingleObservation = await queryBulider.getSingleObservation(req);
-    res.send(SingleObservation);
+    const singleReport = await queryBulider.singleLabReport(req);
+    res.send(singleReport);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -36,7 +36,7 @@ const getSingleObservation = async (req, res, next) => {
   }
 };
 
-const createObservation = async (req, res, next) => {
+const createLabReport = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -44,8 +44,8 @@ const createObservation = async (req, res, next) => {
         errors: errors.array(),
       });
     }
-    const createObservation = await queryBulider.createObservation(req);
-    res.status(HttpStatus.CREATED).send(createObservation);
+    const createLabReport = await queryBulider.createLabReport(req);
+    res.status(HttpStatus.CREATED).send(createLabReport);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -56,7 +56,7 @@ const createObservation = async (req, res, next) => {
   }
 };
 
-const editObservation = async (req, res, next) => {
+const editLabReport = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -65,8 +65,8 @@ const editObservation = async (req, res, next) => {
       });
     }
 
-    const putObservation = await queryBulider.editObservation(req);
-    res.status(HttpStatus.ACCEPTED).send(putObservation);
+    const editReport = await queryBulider.editLabReport(req);
+    res.status(HttpStatus.ACCEPTED).send(editReport);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
@@ -77,7 +77,7 @@ const editObservation = async (req, res, next) => {
   }
 };
 
-const deleteObservation = async (req, res, next) => {
+const deleteLabReport = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -85,7 +85,7 @@ const deleteObservation = async (req, res, next) => {
         errors: errors.array(),
       });
     }
-    await queryBulider.deleteObservation(req);
+    await queryBulider.deleteLabReport(req);
     res.status(HttpStatus.NO_CONTENT).send();
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
@@ -98,9 +98,9 @@ const deleteObservation = async (req, res, next) => {
 };
 
 module.exports = {
-  observationList,
-  getSingleObservation,
-  createObservation,
-  editObservation,
-  deleteObservation,
+  labReportList,
+  singleLabReport,
+  createLabReport,
+  editLabReport,
+  deleteLabReport,
 };

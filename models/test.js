@@ -11,7 +11,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-  test.beforeCreate((test) => (test.id = uuid()));
-  test.associate = function (models) {};
+
+  test.associate = function (models) {
+    test.hasMany(models.labTestcase, {
+      foreignKey: 'testId',
+      as: 'labTestcase_test',
+    });
+  };
   return test;
 };

@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     { timestamps: true, paranoid: true }
   );
-  appointment.beforeCreate((appointment) => (appointment.id = uuid()));
+
   appointment.associate = function (models) {
     appointment.belongsTo(models.observation, {
       foreignKey: 'appointmentId',
