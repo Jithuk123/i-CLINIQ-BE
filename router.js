@@ -15,5 +15,5 @@ module.exports = (app) => {
   app.use('/api/patients', patientRouter);
   app.use('/api/appointments', appointmentRouter);
   app.use('/api/observations', observationRouter);
-  app.use('/api/labresults', labTestCaseRouter);
+  app.use('/api/labResults', labTestCaseRouter);
 };

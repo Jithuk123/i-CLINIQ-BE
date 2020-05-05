@@ -46,8 +46,8 @@ const deletePatient = async (req) => {
   });
 };
 
-const createPatient = async (req) => {
-  return await DB.patient.create({
+const createPatient = (req) => {
+  return DB.patient.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     age: req.body.age,

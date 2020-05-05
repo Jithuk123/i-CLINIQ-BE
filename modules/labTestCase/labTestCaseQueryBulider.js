@@ -27,7 +27,6 @@ const labReportList = async (req) => {
 };
 
 const singleLabReport = async (req) => {
-  console.log(req.params.labReportId, 'ssssssss');
   return DB.labTestcase.findByPk(req.params.labReportId).then((result) => {
     if (!result) {
       throw new Error('Not Found!!');
@@ -48,7 +47,7 @@ const deleteLabReport = async (req) => {
 };
 
 const createLabReport = async (req) => {
-  return await DB.labTestcase.create({
+  return DB.labTestcase.create({
     observationId: req.body.observationId,
     patientId: req.body.patientId,
     testId: req.body.testId,
