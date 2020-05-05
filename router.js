@@ -5,6 +5,7 @@ const accountRouter = require('./modules/account/accountRouter');
 const patientRouter = require('./modules/patients/patientRouter');
 const appointmentRouter = require('./modules/appointments/appointmentRouter');
 const observationRouter = require('./modules/observation/observationRouter');
+const labTestCaseRouter = require('./modules/labTestCase/labTestCaseRouter');
 
 module.exports = (app) => {
   app.use('/api/login', accountRouter);
@@ -14,4 +15,5 @@ module.exports = (app) => {
   app.use('/api/patients', patientRouter);
   app.use('/api/appointments', appointmentRouter);
   app.use('/api/observations', observationRouter);
+  app.use('/api/labResults', labTestCaseRouter);
 };

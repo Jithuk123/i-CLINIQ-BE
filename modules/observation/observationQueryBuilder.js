@@ -45,8 +45,8 @@ const deleteObservation = async (req) => {
     }
   });
 };
-const createObservation = async (req) => {
-  return await DB.observation.create({
+const createObservation = (req) => {
+  return DB.observation.create({
     appointmentId: req.body.appointmentId,
     labTestRequired: req.body.labTestRequired,
     createdBy: req.decode.userId,

@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     { timestamps: true, paranoid: true }
   );
-  labTestcase.beforeCreate((labTestcase) => (labTestcase.id = uuid()));
+
   labTestcase.associate = function (models) {
     labTestcase.belongsTo(models.observation, {
       foreignKey: 'observationId',
@@ -57,10 +57,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'testId',
       onDelete: 'CASCADE',
     });
-    labTestcase.belongsTo(models.user, {
-      foreignKey: 'userId',
-      onDelete: 'CASCADE',
-    });
+    // labTestcase.belongsTo(models.user, {
+    //   foreignKey: 'userId',
+    //   onDelete: 'CASCADE',
+    // });
   };
   return labTestcase;
 };

@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       appointmentId: {
         type: DataTypes.UUID,
         references: {
-          model: 'appointmens',
+          model: 'appointments',
           key: 'id',
         },
       },
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     { timestamps: true, paranoid: true }
   );
-  observation.beforeCreate((observation) => (observation.id = uuid()));
+
   observation.associate = function (models) {
     observation.belongsTo(models.appointment);
     observation.hasMany(models.labTestcase);

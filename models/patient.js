@@ -28,7 +28,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     { timestamps: true, paranoid: true }
   );
-  patient.beforeCreate((patient) => (patient.id = uuid()));
 
   patient.associate = function (models) {
     patient.hasMany(models.appointment, {
@@ -40,10 +39,10 @@ module.exports = (sequelize, DataTypes) => {
       as: 'labtestCase_patientId',
     });
 
-    models.patient.belongsTo(models.user, {
-      foreignKey: 'userId',
-      onDelete: 'CASCADE',
-    });
+    // models.patient.belongsTo(models.user, {
+    //   foreignKey: 'userId',
+    //   onDelete: 'CASCADE',
+    // });
   };
   return patient;
 };
