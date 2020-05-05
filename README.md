@@ -1,14 +1,14 @@
 # health_consultation_application
 
+
 Health Consultation Application 
-	Build a health consultation app where doctors can view their appointments and refer them to labs etc . There will be 3 users- Doctors,Lab Technicians, Admin
+Requirement details:-
+	Build a health consultation app where doctors can view their appointments and refer them to labs etc .
+	There will be 3 users- Doctors,Lab Technicians, Admin
 
 Doctor
 Should should be able to see this appointments
-Should be able to see all details of patient
-His personal details
-Medication history
-Lab history
+Should be able to see all details of patient,his personal details,Medication history,Lab history
 Should be able to update medication(select medicines from a predefined set)
 Should be able to refer them to lab (select tests from a predefined set)
 Should be able to see lab results
