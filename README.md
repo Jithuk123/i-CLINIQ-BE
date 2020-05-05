@@ -20,6 +20,7 @@ Should be able to update results for a test
 Should be able to filter patient by doctors
 Should be able to see past results
 Lab technician can login to the application with the login details provided by admin ( which is to be send to technician’s email id when he is created)
+
 Admin
 Should be able to manage Patients,Doctors,Lab Technicians(create, view, edit, delete)
 Should be able to manage appointments(create, view, edit, delete)
