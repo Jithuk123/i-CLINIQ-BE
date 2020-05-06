@@ -23,8 +23,13 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   appointment.associate = function (models) {
-    appointment.belongsTo(models.observation, {
+    // appointment.belongsTo(models.observation, {
+    //   foreignKey: 'appointmentId',
+    // });
+
+    appointment.hasMany(models.observation, {
       foreignKey: 'appointmentId',
+      as: 'obsevation_appointmentId',
     });
 
     appointment.belongsTo(models.patient, {
