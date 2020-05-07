@@ -26,6 +26,33 @@ const labReportList = async (req) => {
   };
 };
 
+const upcommingTests = async (req) => {
+  let query = {
+    limit: req.query.limit || 10,
+    page: req.query.page || 1,
+    sortKey: req.query.sortKey || 'createdAt',
+    sortOrder: req.query.sortOrder || 'asc',
+  };
+  let upcommingTest = await DB.labTestcase.findAndCountAll({
+    where: { isResultGenarated: 'false' },
+
+    offset: query.limit * (query.page - 1),
+    limit: query.limit,
+    order: [[query.sortKey, query.sortOrder]],
+  });
+  return {
+    metaData: {
+      page: query.page,
+      perPage: query.limit,
+      totalCount: upcommingTest.count,
+      totalPage: Math.ceil(upcommingTest.count / query.limit),
+      sortKey: query.sortKey,
+      sortOrder: query.sortOrder,
+    },
+    records: upcommingTest.rows,
+  };
+};
+
 const singleLabReport = async (req) => {
   return DB.labTestcase.findByPk(req.params.labReportId).then((result) => {
     if (!result) {
@@ -74,4 +101,5 @@ module.exports = {
   createLabReport,
   deleteLabReport,
   editLabReport,
+  upcommingTests,
 };

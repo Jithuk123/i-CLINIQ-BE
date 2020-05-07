@@ -19,7 +19,13 @@ const {
 } = require('./userService');
 
 router.get('/', authentication, authorization('Admin', 'User'), getUserList);
-router.post('/', authentication, validate('postUserCase'), createUser);
+router.post(
+  '/',
+  authentication,
+  authorization('Admin'),
+  validate('postUserCase'),
+  createUser
+);
 router.get(
   '/:userId',
   authentication,
