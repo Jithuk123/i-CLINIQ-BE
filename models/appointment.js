@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
           key: 'id',
         },
       },
+      assignedTo: {
+        allowNull: false,
+        type: DataTypes.UUID,
+      },
+      status: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
       createdBy: {
         type: DataTypes.UUID,
         references: {

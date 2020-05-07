@@ -37,10 +37,21 @@ const getSingleAppointment = async (req) => {
 };
 
 const createAppointment = async (req) => {
-  return await DB.appointment.create({
-    patientId: req.body.patientId,
-    createdBy: req.decode.userId,
-  });
+  if (req.decode.roleId == 'd9aa3fb5-015e-4891-8eb8-c8e78eb7d054') {
+    return await DB.appointment.create({
+      patientId: req.body.patientId,
+      createdBy: req.decode.userId,
+      status: 'pending',
+      assignedTo: req.body.assignedTo,
+    });
+  } else {
+    return await DB.appointment.create({
+      patientId: req.body.patientId,
+      createdBy: req.decode.userId,
+      status: 'pending',
+      assignedTo: req.decode.userId,
+    });
+  }
 };
 const deleteAppointment = async (req) => {
   return DB.appointment

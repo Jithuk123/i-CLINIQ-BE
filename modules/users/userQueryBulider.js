@@ -40,7 +40,7 @@ const createUser = async (req) => {
     email: req.body.email,
     password: hashedPassword,
     phoneNumber: req.body.phoneNumber,
-    roleId: req.decode.roleId,
+    roleId: req.body.roleId,
   });
 };
 
