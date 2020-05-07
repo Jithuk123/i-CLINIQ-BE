@@ -16,21 +16,36 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       createdBy: {
-        allowNull: false,
         type: DataTypes.UUID,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
       },
     },
     { timestamps: true, paranoid: true }
   );
 
   observation.associate = function (models) {
-    observation.belongsTo(models.appointment);
-    observation.hasMany(models.labTestcase);
-    observation.belongsToMany(models.medicine, {
-      foreignKey: 'observation_id',
-      through: 'observation_medicines',
-      as: 'observationMedicine',
+    observation.belongsTo(models.appointment, {
+      foreignKey: 'appointmentId',
+      onDelete: 'CASCADE',
     });
+    observation.belongsTo(models.user, {
+      foreignKey: 'createdBy',
+      onDelete: 'CASCADE',
+    });
+
+    observation.hasMany(models.labTestcase, {
+      foreignKey: 'observationId',
+      as: 'labtestCase_observationId',
+    });
+
+    // observation.belongsTo(models.medicine, {
+    //   foreignKey: 'observationId',
+    //   through: 'observation_medicines',
+    //   as: 'observationMedicine',
+    // });
   };
   return observation;
 };

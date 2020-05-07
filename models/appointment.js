@@ -40,6 +40,11 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'patientId',
       onDelete: 'CASCADE',
     });
+
+    appointment.belongsTo(models.user, {
+      foreignKey: 'createdBy',
+      onDelete: 'CASCADE',
+    });
   };
   return appointment;
 };

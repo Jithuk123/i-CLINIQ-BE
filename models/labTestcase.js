@@ -57,10 +57,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'testId',
       onDelete: 'CASCADE',
     });
-    // labTestcase.belongsTo(models.user, {
-    //   foreignKey: 'userId',
-    //   onDelete: 'CASCADE',
-    // });
+    labTestcase.belongsTo(models.user, {
+      foreignKey: 'createdBy',
+      onDelete: 'CASCADE',
+    });
   };
   return labTestcase;
 };
