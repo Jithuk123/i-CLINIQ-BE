@@ -38,7 +38,7 @@ module.exports = {
         },
       },
       createdBy: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
         allowNull: false,
       },
 

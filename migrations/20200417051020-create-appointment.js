@@ -18,6 +18,14 @@ module.exports = {
 
       createdBy: {
         allowNull: false,
+        type: Sequelize.UUID,
+      },
+      assignedTo: {
+        allowNull: false,
+        type: Sequelize.UUID,
+      },
+      status: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       createdAt: {

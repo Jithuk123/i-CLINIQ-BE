@@ -15,9 +15,11 @@ const {
   createLabReport,
   deleteLabReport,
   editLabReport,
+  upcommingTests,
 } = require('./labTestCaseService');
 
 router.get('/', labReportList);
+router.get('/upcommingTests', upcommingTests);
 router.get('/:labReportId', validate('singleLabReportCase'), singleLabReport);
 router.post(
   '/',

@@ -32,6 +32,7 @@ router.get(
 router.post(
   '/',
   authentication,
+  authorization('Admin', 'Doctor'),
   validate('postAppointmentCase'),
   createAppointment
 );
