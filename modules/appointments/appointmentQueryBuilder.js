@@ -34,7 +34,7 @@ const doctorsAppointment = async (req) => {
     sortOrder: req.query.sortOrder || 'asc',
   };
   let appointmentList = await DB.appointment.findAndCountAll({
-    // where: { createdBy: req.decode.userId },
+    where: { createdBy: req.decode.userId },
 
     offset: query.limit * (query.page - 1),
     limit: query.limit,

@@ -20,8 +20,8 @@ const {
 router.get('/', appointmentList);
 router.get(
   '/myAppointment',
-  // authentication,
-  // authorization('Doctor'),
+  authentication,
+  authorization('Doctor'),
   doctorsAppointment
 );
 router.get(
