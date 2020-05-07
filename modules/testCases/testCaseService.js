@@ -15,6 +15,7 @@ const getTest = async (req, res) => {
     });
   }
 };
+
 const getSingleTest = async (req, res) => {
   try {
     const errors = validationResult(req);
