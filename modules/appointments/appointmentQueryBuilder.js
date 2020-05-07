@@ -34,7 +34,7 @@ const doctorsAppointment = async (req) => {
     sortOrder: req.query.sortOrder || 'asc',
   };
   let appointmentList = await DB.appointment.findAndCountAll({
-    where: { createdBy: req.decode.userId },
+    where: { assignedTo: req.decode.userId },
 
     offset: query.limit * (query.page - 1),
     limit: query.limit,
@@ -63,10 +63,21 @@ const getSingleAppointment = async (req) => {
 };
 
 const createAppointment = async (req) => {
-  return await DB.appointment.create({
-    patientId: req.body.patientId,
-    createdBy: req.decode.userId,
-  });
+  if (req.decode.roleId == 'd9aa3fb5-015e-4891-8eb8-c8e78eb7d054')
+    return await DB.appointment.create({
+      patientId: req.body.patientId,
+      createdBy: req.decode.userId,
+      assignedTo: req.body.assignedTo,
+      status: 'pending',
+    });
+  else {
+    return await DB.appointment.create({
+      patientId: req.body.patientId,
+      createdBy: req.decode.userId,
+      assignedTo: req.decode.userId,
+      status: 'pending',
+    });
+  }
 };
 const deleteAppointment = async (req) => {
   return DB.appointment
