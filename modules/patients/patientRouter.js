@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const { validate } = require('./patientValidator');
-const { authentication } = require('../../');
+const {
+  authentication,
+} = require('../../middleware/auth/authenticationMiddleware');
 const {
   authorization,
 } = require('../../middleware/auth/authorizationMiddleware');
@@ -17,7 +19,9 @@ const {
 } = require('./patientService');
 
 router.get('/', authentication, patientList);
-router.get('/doctor/:userId', patientByDoctor);
+
+// router.get('/doctor/:userId', patientByDoctor);
+
 router.get(
   '/:patientId',
   authentication,
@@ -25,6 +29,7 @@ router.get(
   getSinglePatient
 );
 router.post('/', authentication, validate('postPatientCase'), createPatient);
+
 router.put(
   '/:patientId',
   authentication,

@@ -16,25 +16,33 @@ module.exports = (sequelize, DataTypes) => {
       height: DataTypes.FLOAT,
       phoneNumber: {
         type: DataTypes.STRING,
+        unique: true,
       },
       createdBy: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: DataTypes.UUID,
+        references: {
+          model: 'user',
+          key: 'id',
+        },
       },
     },
     { timestamps: true, paranoid: true }
   );
-  patient.beforeCreate((patient) => (patient.id = uuid()));
 
   patient.associate = function (models) {
     patient.hasMany(models.appointment, {
       foreignKey: 'patientId',
-      as: 'appointment_patientId'
+      as: 'appointment_patientId',
     });
     patient.hasMany(models.labTestcase, {
       foreignKey: 'patientId',
-      as: 'labtestCase_patientId'
+      as: 'labtestCase_patientId',
     });
+
+    // models.patient.belongsTo(models.user, {
+    //   foreignKey: 'userId',
+    //   onDelete: 'CASCADE',
+    // });
   };
   return patient;
 };

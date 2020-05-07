@@ -34,13 +34,16 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       createdBy: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: DataTypes.UUID,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
       },
     },
     { timestamps: true, paranoid: true }
   );
-  labTestcase.beforeCreate((labTestcase) => (labTestcase.id = uuid()));
+
   labTestcase.associate = function (models) {
     labTestcase.belongsTo(models.observation, {
       foreignKey: 'observationId',
@@ -54,6 +57,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'testId',
       onDelete: 'CASCADE',
     });
+    // labTestcase.belongsTo(models.user, {
+    //   foreignKey: 'userId',
+    //   onDelete: 'CASCADE',
+    // });
   };
   return labTestcase;
 };

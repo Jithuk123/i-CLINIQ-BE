@@ -11,22 +11,41 @@ module.exports = (sequelize, DataTypes) => {
           key: 'id',
         },
       },
-      createdBy: {
+      assignedTo: {
+        allowNull: false,
+        type: DataTypes.UUID,
+      },
+      status: {
         allowNull: false,
         type: DataTypes.STRING,
+      },
+      createdBy: {
+        type: DataTypes.UUID,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
       },
     },
     { timestamps: true, paranoid: true }
   );
-  appointment.beforeCreate((appointment) => (appointment.id = uuid()));
+
   appointment.associate = function (models) {
+    // appointment.belongsTo(models.observation, {
+    //   foreignKey: 'appointmentId',
+    // });
+
     appointment.hasMany(models.observation, {
       foreignKey: 'appointmentId',
-      as: 'observations_appointmentId',
+      as: 'obsevation_appointmentId',
     });
 
     appointment.belongsTo(models.patient, {
-      foreignKey: 'patinetId',
+      foreignKey: 'patientId',
+      onDelete: 'CASCADE',
+    });
+    appointment.belongsTo(models.user, {
+      foreignKey: 'userId',
       onDelete: 'CASCADE',
     });
   };

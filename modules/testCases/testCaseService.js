@@ -1,37 +1,22 @@
+const testQueryBulider = require('./testCaseQueryBulider');
 const HttpStatus = require('http-status-codes');
-
 const { validationResult } = require('express-validator');
-const patientQueryBulider = require('./patientQueryBulider');
 
-const patientList = async (req, res, next) => {
+const getTest = async (req, res) => {
   try {
-    const patientList = await patientQueryBulider.patientList(req);
-    res.send(patientList);
+    const getTestResponse = await testQueryBulider.getTest(req);
+    res.send(getTestResponse);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
         message: error.message,
-        code: HttpStatus.INTERNAL_SERVER_ERROR,
-      },
-    });
-  }
-};
-const patientByDoctor = async (req, res, next) => {
-  console.log('222222222222');
-  try {
-    const filteredByDoctor = await patientQueryBulider.patientByDoctor(req);
-    res.send(filteredByDoctor);
-  } catch (error) {
-    res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
-      error: {
-        message: error.message,
-        code: HttpStatus.INTERNAL_SERVER_ERROR,
+        code: HttpStatus.code,
       },
     });
   }
 };
 
-const getSinglePatient = async (req, res, next) => {
+const getSingleTest = async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -39,21 +24,20 @@ const getSinglePatient = async (req, res, next) => {
         errors: errors.array(),
       });
     }
-    const getSinglePatinetResponse = await patientQueryBulider.getSinglePatient(
-      req
-    );
-    res.send(getSinglePatinetResponse);
+
+    const getSingleTestResponse = await testQueryBulider.getSingleTest(req);
+    res.send(getSingleTestResponse);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
         message: error.message,
-        code: HttpStatus.INTERNAL_SERVER_ERROR,
+        code: HttpStatus.code,
       },
     });
   }
 };
 
-const createPatient = async (req, res, next) => {
+const postTest = async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -61,19 +45,20 @@ const createPatient = async (req, res, next) => {
         errors: errors.array(),
       });
     }
-    const createPatient = await patientQueryBulider.createPatient(req);
-    res.status(HttpStatus.CREATED).send(createPatient);
+
+    const postTestResponse = await testQueryBulider.postTest(req);
+    res.status(HttpStatus.CREATED).send(postTestResponse);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
         message: error.message,
-        code: HttpStatus.INTERNAL_SERVER_ERROR,
+        code: HttpStatus.code,
       },
     });
   }
 };
 
-const editPatient = async (req, res, next) => {
+const editTest = async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -82,19 +67,19 @@ const editPatient = async (req, res, next) => {
       });
     }
 
-    const editPatinet = await patientQueryBulider.editPatient(req);
-    res.status(HttpStatus.ACCEPTED).send(editPatinet);
+    const editTestResponse = await testQueryBulider.editTest(req);
+    res.status(HttpStatus.ACCEPTED).send(editTestResponse);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
         message: error.message,
-        code: HttpStatus.INTERNAL_SERVER_ERROR,
+        code: HttpStatus.code,
       },
     });
   }
 };
 
-const deletePatient = async (req, res, next) => {
+const deleteTest = async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -102,22 +87,23 @@ const deletePatient = async (req, res, next) => {
         errors: errors.array(),
       });
     }
-    await patientQueryBulider.deletePatient(req);
+
+    const deleteTestResponse = await testQueryBulider.deleteTest(req);
     res.status(HttpStatus.NO_CONTENT).send();
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
         message: error.message,
-        code: HttpStatus.INTERNAL_SERVER_ERROR,
+        code: HttpStatus.code,
       },
     });
   }
 };
+
 module.exports = {
-  getSinglePatient,
-  deletePatient,
-  editPatient,
-  createPatient,
-  patientList,
-  patientByDoctor,
+  getTest,
+  getSingleTest,
+  postTest,
+  editTest,
+  deleteTest,
 };

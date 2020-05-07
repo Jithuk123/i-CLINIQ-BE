@@ -2,8 +2,12 @@ const express = require('express');
 
 const router = express.Router();
 const { validate } = require('./userValidator');
-const { authentication } = require('../auth/authenticationMiddleware');
-const { authorization } = require('../auth/authorizationMiddleware');
+const {
+  authentication,
+} = require('../../middleware/auth/authenticationMiddleware');
+const {
+  authorization,
+} = require('../../middleware/auth/authorizationMiddleware');
 //auth
 
 const {
@@ -15,7 +19,13 @@ const {
 } = require('./userService');
 
 router.get('/', authentication, authorization('Admin', 'User'), getUserList);
-router.post('/', authentication, validate('postUserCase'), createUser);
+router.post(
+  '/',
+  authentication,
+  authorization('Admin'),
+  validate('postUserCase'),
+  createUser
+);
 router.get(
   '/:userId',
   authentication,

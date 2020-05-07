@@ -11,7 +11,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-  role.beforeCreate((role) => (role.id = uuid()));
-  role.associate = function (models) {};
+
+  role.associate = function (models) {
+    role.hasMany(models.user, {
+      foreignKey: 'roleId',
+      as: 'role_userId',
+    });
+  };
   return role;
 };

@@ -4,6 +4,10 @@ const testRouter = require('./modules/testCases/testCaseRouter');
 const accountRouter = require('./modules/account/accountRouter');
 const patientRouter = require('./modules/patients/patientRouter');
 const appointmentRouter = require('./modules/appointments/appointmentRouter');
+const observationRouter = require('./modules/observation/observationRouter');
+const labTestCaseRouter = require('./modules/labTestCase/labTestCaseRouter');
+
+const error = require('./middleware/error/error');
 
 module.exports = (app) => {
   app.use('/api/login', accountRouter);
@@ -12,4 +16,8 @@ module.exports = (app) => {
   app.use('/api/tests', testRouter);
   app.use('/api/patients', patientRouter);
   app.use('/api/appointments', appointmentRouter);
+  app.use('/api/observations', observationRouter);
+  app.use('/api/labResults', labTestCaseRouter);
+
+  app.use(error);
 };

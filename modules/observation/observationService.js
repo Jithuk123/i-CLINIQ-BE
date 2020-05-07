@@ -1,21 +1,22 @@
-const testQueryBulider = require('./testCaseQueryBulider');
 const HttpStatus = require('http-status-codes');
+const queryBulider = require('./observationQueryBuilder');
 const { validationResult } = require('express-validator');
 
-const getTest = async (req, res) => {
+const observationList = async (req, res, next) => {
   try {
-    const getTestResponse = await testQueryBulider.getTest(req);
-    res.send(getTestResponse);
+    const observations = await queryBulider.observationList(req);
+    res.send(observations);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
         message: error.message,
-        code: HttpStatus.code,
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
       },
     });
   }
 };
-const getSingleTest = async (req, res) => {
+
+const getSingleObservation = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -23,20 +24,19 @@ const getSingleTest = async (req, res) => {
         errors: errors.array(),
       });
     }
-
-    const getSingleTestResponse = await testQueryBulider.getSingleTest(req);
-    res.send(getSingleTestResponse);
+    const SingleObservation = await queryBulider.getSingleObservation(req);
+    res.send(SingleObservation);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
         message: error.message,
-        code: HttpStatus.code,
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
       },
     });
   }
 };
 
-const postTest = async (req, res) => {
+const createObservation = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -44,20 +44,19 @@ const postTest = async (req, res) => {
         errors: errors.array(),
       });
     }
-
-    const postTestResponse = await testQueryBulider.postTest(req);
-    res.status(HttpStatus.CREATED).send(postTestResponse);
+    const createObservation = await queryBulider.createObservation(req);
+    res.status(HttpStatus.CREATED).send(createObservation);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
         message: error.message,
-        code: HttpStatus.code,
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
       },
     });
   }
 };
 
-const editTest = async (req, res) => {
+const editObservation = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -66,19 +65,19 @@ const editTest = async (req, res) => {
       });
     }
 
-    const editTestResponse = await testQueryBulider.editTest(req);
-    res.status(HttpStatus.ACCEPTED).send(editTestResponse);
+    const putObservation = await queryBulider.editObservation(req);
+    res.status(HttpStatus.ACCEPTED).send(putObservation);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
         message: error.message,
-        code: HttpStatus.code,
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
       },
     });
   }
 };
 
-const deleteTest = async (req, res) => {
+const deleteObservation = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -86,23 +85,22 @@ const deleteTest = async (req, res) => {
         errors: errors.array(),
       });
     }
-
-    const deleteTestResponse = await testQueryBulider.deleteTest(req);
+    await queryBulider.deleteObservation(req);
     res.status(HttpStatus.NO_CONTENT).send();
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {
         message: error.message,
-        code: HttpStatus.code,
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
       },
     });
   }
 };
 
 module.exports = {
-  getTest,
-  getSingleTest,
-  postTest,
-  editTest,
-  deleteTest,
+  observationList,
+  getSingleObservation,
+  createObservation,
+  editObservation,
+  deleteObservation,
 };

@@ -8,12 +8,7 @@ const getUserList = async (req, res, next) => {
     const UserList = await userQueryBulider.getUserList(req);
     res.send(UserList);
   } catch (error) {
-    res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
-      error: {
-        message: error.message,
-        code: HttpStatus.INTERNAL_SERVER_ERROR,
-      },
-    });
+    next(error);
   }
 };
 
@@ -28,12 +23,7 @@ const getSingleUser = async (req, res, next) => {
     const getSingleUser = await userQueryBulider.getSingleUser(req);
     res.send(getSingleUser);
   } catch (error) {
-    res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
-      error: {
-        message: error.message,
-        code: HttpStatus.INTERNAL_SERVER_ERROR,
-      },
-    });
+    next(error);
   }
 };
 
@@ -48,12 +38,7 @@ const createUser = async (req, res, next) => {
     const newUser = await userQueryBulider.createUser(req);
     res.status(HttpStatus.CREATED).send(newUser);
   } catch (error) {
-    res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
-      error: {
-        message: error.message,
-        code: HttpStatus.INTERNAL_SERVER_ERROR,
-      },
-    });
+    next(error);
   }
 };
 
@@ -69,12 +54,7 @@ const editUser = async (req, res, next) => {
     const editUser = await userQueryBulider.editUser(req);
     res.status(HttpStatus.ACCEPTED).send(editUser);
   } catch (error) {
-    res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
-      error: {
-        message: error.message,
-        code: HttpStatus.INTERNAL_SERVER_ERROR,
-      },
-    });
+    next(error);
   }
 };
 
@@ -90,12 +70,7 @@ const deleteUser = async (req, res, next) => {
     const deleteUserResponse = await userQueryBulider.deleteUser(req);
     res.status(HttpStatus.NO_CONTENT).send();
   } catch (error) {
-    res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
-      error: {
-        message: error.message,
-        code: HttpStatus.INTERNAL_SERVER_ERROR,
-      },
-    });
+    next(error);
   }
 };
 

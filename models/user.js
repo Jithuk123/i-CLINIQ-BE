@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-  user.beforeCreate((user) => (user.id = uuid()));
+
   user.associate = function (models) {
     models.user.belongsTo(models.role, {
       foreignKey: 'roleId',

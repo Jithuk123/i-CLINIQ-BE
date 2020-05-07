@@ -26,44 +26,44 @@ const patientList = async (req) => {
   };
 };
 
-const patientByDoctor = (req) => {
+const patientByDoctor = async (req) => {
+  console.log('hereeeeeeee');
   let query = {
     limit: req.query.limit || 10,
     page: req.query.page || 1,
-    sortKey: req.query.sortKey || 'firstName',
+    sortKey: req.query.sortKey || 'patientId',
     sortOrder: req.query.sortOrder || 'asc',
   };
-  let patientData = await DB.appointment.findAndCountAll({
+  let patientData = await DB.patient.findAndCountAll({
     include: {
-      model: DB.patient,
+      model: DB.appointment,
       where: {
-      userId: req.params.userId,
+        assignedTo: req.params.userId,
       },
-      },
+    },
     offset: query.limit * (query.page - 1),
     limit: query.limit,
     order: [[query.sortKey, query.sortOrder]],
   });
-  return{
-  metaData: {
-    page: query.page,
-    perPage: query.limit,
-    totalCount: patientData.count,
-    totalPage: Math.ceil(patientData.count / query.limit),
-    sortKey: query.sortKey,
-    sortOrder: query.sortOrder,
-  },
-  records: patientData.rows,
-
+  return {
+    metaData: {
+      page: query.page,
+      perPage: query.limit,
+      totalCount: patientData.count,
+      totalPage: Math.ceil(patientData.count / query.limit),
+      sortKey: query.sortKey,
+      sortOrder: query.sortOrder,
+    },
+    records: patientData.rows,
+  };
 };
-}
 
 const getSinglePatient = async (req) => {
   return DB.patient.findByPk(req.params.patientId).then((result) => {
     if (!result) {
       throw new Error('Not Found!!');
     } else {
-      return result.dataValues;
+      return result;
     }
   });
 };
@@ -78,8 +78,8 @@ const deletePatient = async (req) => {
   });
 };
 
-const createPatient = async (req) => {
-  return await DB.patient.create({
+const createPatient = (req) => {
+  return DB.patient.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     age: req.body.age,
@@ -111,5 +111,5 @@ module.exports = {
   deletePatient,
   getSinglePatient,
   patientList,
-  patientByDoctor
+  patientByDoctor,
 };
