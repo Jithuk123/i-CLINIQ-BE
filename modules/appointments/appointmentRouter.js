@@ -14,9 +14,16 @@ const {
   getSingleAppointment,
   createAppointment,
   deleteAppointment,
+  doctorsAppointment,
 } = require('./appointmentService');
 
 router.get('/', appointmentList);
+router.get(
+  '/myAppointment',
+  // authentication,
+  // authorization('Doctor'),
+  doctorsAppointment
+);
 router.get(
   '/:appointmentId',
   validate('singleAppointmentCase'),
@@ -34,4 +41,5 @@ router.delete(
   validate('deleteAppointmentCase'),
   deleteAppointment
 );
+
 module.exports = router;

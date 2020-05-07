@@ -25,7 +25,7 @@ router.get(
 router.post(
   '/',
   authentication,
-  authorization('Admin'),
+  authorization('Admin', 'Doctor'),
   validate('postObservationCase'),
   createObservation
 );

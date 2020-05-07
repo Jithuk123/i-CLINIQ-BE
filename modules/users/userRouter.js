@@ -18,8 +18,8 @@ const {
   deleteUser,
 } = require('./userService');
 
-router.get('/', authentication, authorization('Admin', 'User'), getUserList);
-router.post('/', authentication, validate('postUserCase'), createUser);
+router.get('/', authentication, authorization('Admin', 'Doctor'), getUserList);
+router.post('/', validate('postUserCase'), createUser);
 router.get(
   '/:userId',
   authentication,
