@@ -16,6 +16,20 @@ const patientList = async (req, res, next) => {
     });
   }
 };
+const patientByDoctor=(req, res, next)=>{
+  try {
+    const filteredByDoctor = await patientQueryBulider.patientByDoctor(req);
+    res.send(filteredByDoctor);
+  } catch (error) {
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
+      error: {
+        message: error.message,
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
+      },
+    });
+  }
+  }
+
 
 const getSinglePatient = async (req, res, next) => {
   try {
@@ -105,4 +119,5 @@ module.exports = {
   editPatient,
   createPatient,
   patientList,
+  patientByDoctor,
 };

@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const { validate } = require('./patientValidator');
-const { authentication } = require('../auth/authenticationMiddleware');
-const { authorization } = require('../auth/authorizationMiddleware');
+const { authentication } = require('../../');
+const {
+  authorization,
+} = require('../../middleware/auth/authorizationMiddleware');
 
 const {
   patientList,
@@ -11,9 +13,11 @@ const {
   createPatient,
   editPatient,
   deletePatient,
+  patientByDoctor,
 } = require('./patientService');
 
 router.get('/', authentication, patientList);
+router.get('/doctor/:userId', patientByDoctor);
 router.get(
   '/:patientId',
   authentication,
