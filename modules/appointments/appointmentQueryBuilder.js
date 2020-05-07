@@ -63,7 +63,9 @@ const getSingleAppointment = async (req) => {
 };
 
 const createAppointment = async (req) => {
-  if (req.decode.roleId == 'd9aa3fb5-015e-4891-8eb8-c8e78eb7d054')
+  const roleId = await DB.role.findOne({ where: { name: 'Admin' } });
+
+  if (req.decode.roleId == roleId.id)
     return await DB.appointment.create({
       patientId: req.body.patientId,
       createdBy: req.decode.userId,

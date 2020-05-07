@@ -16,7 +16,6 @@ const appointmentList = async (req, res, next) => {
   }
 };
 const doctorsAppointment = async (req, res, next) => {
-  console.log('hereeeeeeeeeeeeeeee');
   try {
     const appointment = await appointmentQueryBulider.doctorsAppointment(req);
     res.send(appointment);
