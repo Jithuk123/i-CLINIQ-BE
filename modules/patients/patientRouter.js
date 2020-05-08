@@ -20,7 +20,7 @@ const {
 
 router.get('/', authentication, patientList);
 
-// router.get('/doctor/:userId', patientByDoctor);
+router.get('/doctor/:userId', patientByDoctor);
 
 router.get(
   '/:patientId',

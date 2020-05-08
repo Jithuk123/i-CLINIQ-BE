@@ -17,7 +17,6 @@ const patientList = async (req, res, next) => {
   }
 };
 const patientByDoctor = async (req, res, next) => {
-  console.log('222222222222');
   try {
     const filteredByDoctor = await patientQueryBulider.patientByDoctor(req);
     res.send(filteredByDoctor);

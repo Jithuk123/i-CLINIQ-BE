@@ -27,16 +27,16 @@ const patientList = async (req) => {
 };
 
 const patientByDoctor = async (req) => {
-  console.log('hereeeeeeee');
   let query = {
     limit: req.query.limit || 10,
     page: req.query.page || 1,
-    sortKey: req.query.sortKey || 'patientId',
+    sortKey: req.query.sortKey || 'firstName',
     sortOrder: req.query.sortOrder || 'asc',
   };
   let patientData = await DB.patient.findAndCountAll({
     include: {
       model: DB.appointment,
+      as: 'appointment_patientId',
       where: {
         assignedTo: req.params.userId,
       },
