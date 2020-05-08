@@ -43,6 +43,23 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'roleId',
       onDelete: 'CASCADE',
     });
+
+    user.hasMany(models.appointment, {
+      foreignKey: 'createdBy',
+      as: 'user_test',
+    });
+    user.hasMany(models.labTestcase, {
+      foreignKey: 'createdBy',
+      as: 'user_labTestcase',
+    });
+    user.hasMany(models.patient, {
+      foreignKey: 'createdBy',
+      as: 'user_patient',
+    });
+    user.hasMany(models.observation, {
+      foreignKey: 'createdBy',
+      as: 'user_observation',
+    });
   };
   return user;
 };

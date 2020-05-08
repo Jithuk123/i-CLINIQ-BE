@@ -16,18 +16,33 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       createdBy: {
-        allowNull: false,
         type: DataTypes.UUID,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
       },
     },
     { timestamps: true, paranoid: true }
   );
 
   observation.associate = function (models) {
-    observation.belongsTo(models.appointment);
-    observation.hasMany(models.labTestcase);
+    observation.belongsTo(models.appointment, {
+      foreignKey: 'appointmentId',
+      onDelete: 'CASCADE',
+    });
+    observation.belongsTo(models.user, {
+      foreignKey: 'createdBy',
+      onDelete: 'CASCADE',
+    });
+
+    observation.hasMany(models.labTestcase, {
+      foreignKey: 'observationId',
+      as: 'labtestCase_observationId',
+    });
+
     observation.belongsToMany(models.medicine, {
-      foreignKey: 'observation_id',
+      foreignKey: 'observationId',
       through: 'observation_medicines',
       as: 'observationMedicine',
     });

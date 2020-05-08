@@ -45,7 +45,13 @@ const createObservation = async (req, res, next) => {
       });
     }
     const createObservation = await queryBulider.createObservation(req);
-    res.status(HttpStatus.CREATED).send(createObservation);
+    if (createObservation)
+      observationMedicine = await queryBulider.observationMedicine(
+        req,
+        createObservation
+      );
+
+    res.status(HttpStatus.CREATED).send(observationMedicine);
   } catch (error) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
       error: {

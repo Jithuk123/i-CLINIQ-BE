@@ -18,7 +18,7 @@ const {
   deleteUser,
 } = require('./userService');
 
-router.get('/', authentication, authorization('Admin', 'User'), getUserList);
+router.get('/', authentication, authorization('Admin', 'Doctor'), getUserList);
 router.post(
   '/',
   authentication,

@@ -31,10 +31,6 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   appointment.associate = function (models) {
-    // appointment.belongsTo(models.observation, {
-    //   foreignKey: 'appointmentId',
-    // });
-
     appointment.hasMany(models.observation, {
       foreignKey: 'appointmentId',
       as: 'obsevation_appointmentId',
@@ -44,8 +40,9 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'patientId',
       onDelete: 'CASCADE',
     });
+
     appointment.belongsTo(models.user, {
-      foreignKey: 'userId',
+      foreignKey: 'createdBy',
       onDelete: 'CASCADE',
     });
   };
