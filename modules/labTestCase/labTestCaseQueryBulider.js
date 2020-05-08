@@ -33,8 +33,35 @@ const upcommingTests = async (req) => {
     sortKey: req.query.sortKey || 'createdAt',
     sortOrder: req.query.sortOrder || 'asc',
   };
-  let upcommingTest = await DB.labTestcase.findAndCountAll({
+  let pastTest = await DB.labTestcase.findAndCountAll({
     where: { isResultGenarated: 'false' },
+
+    offset: query.limit * (query.page - 1),
+    limit: query.limit,
+    order: [[query.sortKey, query.sortOrder]],
+  });
+  return {
+    metaData: {
+      page: query.page,
+      perPage: query.limit,
+      totalCount: pastTest.count,
+      totalPage: Math.ceil(pastTest.count / query.limit),
+      sortKey: query.sortKey,
+      sortOrder: query.sortOrder,
+    },
+    records: pastTest.rows,
+  };
+};
+
+const pastTest = async (req) => {
+  let query = {
+    limit: req.query.limit || 10,
+    page: req.query.page || 1,
+    sortKey: req.query.sortKey || 'createdAt',
+    sortOrder: req.query.sortOrder || 'asc',
+  };
+  let upcommingTest = await DB.labTestcase.findAndCountAll({
+    where: { isResultGenarated: 'true' },
 
     offset: query.limit * (query.page - 1),
     limit: query.limit,
@@ -102,4 +129,5 @@ module.exports = {
   deleteLabReport,
   editLabReport,
   upcommingTests,
+  pastTest,
 };
