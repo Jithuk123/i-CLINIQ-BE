@@ -46,7 +46,6 @@ const deleteObservation = async (req) => {
   });
 };
 const createObservation = (req) => {
-  console.log(req.body, 'llllllllllllll');
   return DB.observation.create({
     appointmentId: req.body.appointmentId,
     labTestRequired: req.body.labTestRequired,
@@ -55,7 +54,6 @@ const createObservation = (req) => {
 };
 
 const observationMedicine = (req, observation) => {
-  console.log(req.body.medicineId, '111111111');
   return DB.observation_medicines.create({
     observationId: observation.id,
     medicineId: req.body.medicineId,
