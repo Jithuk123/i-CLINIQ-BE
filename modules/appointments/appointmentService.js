@@ -15,6 +15,20 @@ const appointmentList = async (req, res, next) => {
     });
   }
 };
+const doctorsAppointment = async (req, res, next) => {
+  try {
+    const appointment = await appointmentQueryBulider.doctorsAppointment(req);
+    res.send(appointment);
+  } catch (error) {
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
+      error: {
+        message: error.message,
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
+      },
+    });
+  }
+};
+
 const getSingleAppointment = async (req, res, next) => {
   try {
     const getAppointmentList = await appointmentQueryBulider.getSingleAppointment(
@@ -72,9 +86,11 @@ const deleteAppointment = async (req, res, next) => {
     });
   }
 };
+
 module.exports = {
   appointmentList,
   getSingleAppointment,
   createAppointment,
   deleteAppointment,
+  doctorsAppointment,
 };

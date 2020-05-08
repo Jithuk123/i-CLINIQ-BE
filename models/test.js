@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 
   test.associate = function (models) {
     test.hasMany(models.labTestcase, {
-      foreignKey: 'testId',
+      foreignKey: 'createdBy',
       as: 'labTestcase_test',
     });
   };

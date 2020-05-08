@@ -39,10 +39,10 @@ module.exports = (sequelize, DataTypes) => {
       as: 'labtestCase_patientId',
     });
 
-    // models.patient.belongsTo(models.user, {
-    //   foreignKey: 'userId',
-    //   onDelete: 'CASCADE',
-    // });
+    models.patient.belongsTo(models.user, {
+      foreignKey: 'createdBy',
+      onDelete: 'CASCADE',
+    });
   };
   return patient;
 };

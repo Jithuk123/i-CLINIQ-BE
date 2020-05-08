@@ -53,9 +53,17 @@ const createObservation = (req) => {
   });
 };
 
+const observationMedicine = (req, observation) => {
+  return DB.observation_medicines.create({
+    observationId: observation.id,
+    medicineId: req.body.medicineId,
+  });
+};
+
 module.exports = {
   observationList,
   getSingleObservation,
   deleteObservation,
   createObservation,
+  observationMedicine,
 };
