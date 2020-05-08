@@ -15,9 +15,13 @@ const {
   createPatient,
   editPatient,
   deletePatient,
+  patientByDoctor,
 } = require('./patientService');
 
 router.get('/', authentication, patientList);
+
+router.get('/doctor/:doctorId', authentication, patientByDoctor);
+
 router.get(
   '/:patientId',
   authentication,
@@ -25,6 +29,7 @@ router.get(
   getSinglePatient
 );
 router.post('/', authentication, validate('postPatientCase'), createPatient);
+
 router.put(
   '/:patientId',
   authentication,
