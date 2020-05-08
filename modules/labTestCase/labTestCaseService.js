@@ -30,6 +30,20 @@ const upcommingTests = async (req, res) => {
   }
 };
 
+const pastTest = async (req, res) => {
+  try {
+    const pastTestList = await queryBulider.pastTest(req);
+    res.send(pastTestList);
+  } catch (error) {
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
+      error: {
+        message: error.message,
+        code: HttpStatus.code,
+      },
+    });
+  }
+};
+
 const singleLabReport = async (req, res, next) => {
   try {
     const errors = validationResult(req);
@@ -118,4 +132,5 @@ module.exports = {
   editLabReport,
   deleteLabReport,
   upcommingTests,
+  pastTest,
 };
