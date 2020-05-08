@@ -38,7 +38,7 @@ const patientByDoctor = async (req) => {
       model: DB.appointment,
       as: 'appointment_patientId',
       where: {
-        assignedTo: req.params.userId,
+        assignedTo: req.params.doctorId,
       },
     },
     offset: query.limit * (query.page - 1),
