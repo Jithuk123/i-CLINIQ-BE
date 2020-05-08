@@ -41,11 +41,11 @@ module.exports = (sequelize, DataTypes) => {
       as: 'labtestCase_observationId',
     });
 
-    // observation.belongsTo(models.medicine, {
-    //   foreignKey: 'observationId',
-    //   through: 'observation_medicines',
-    //   as: 'observationMedicine',
-    // });
+    observation.belongsToMany(models.medicine, {
+      foreignKey: 'observationId',
+      through: 'observation_medicines',
+      as: 'observationMedicine',
+    });
   };
   return observation;
 };
