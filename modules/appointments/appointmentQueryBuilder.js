@@ -4,15 +4,21 @@ const appointmentList = async (req) => {
   let query = {
     limit: req.query.limit || 10,
     page: req.query.page || 1,
-    sortKey: req.query.sortKey || 'patientId',
+    sortKey: req.query.sortKey || 'createdAt',
     sortOrder: req.query.sortOrder || 'asc',
   };
 
   let appointmentList = await DB.appointment.findAndCountAll({
+    include: [
+      {
+        model: DB.patient,
+      },
+    ],
     offset: query.limit * (query.page - 1),
     limit: query.limit,
     order: [[query.sortKey, query.sortOrder]],
   });
+
   return {
     metaData: {
       page: query.page,
