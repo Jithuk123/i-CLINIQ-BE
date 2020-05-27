@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
     },
-    {}
+    { timestamps: true, paranoid: true }
   );
 
   role.associate = function (models) {

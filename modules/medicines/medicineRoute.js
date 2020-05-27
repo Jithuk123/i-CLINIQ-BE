@@ -19,5 +19,5 @@ router.get(
 );
 router.post('/', validate('postMedicineCase'), postMedicine);
 router.put('/:medicineId', validate('editMedicineCase'), editMedicine);
-router.delete('/:medicineId', validate('editMedicineCase'), deleteMedicine);
+router.delete('/:medicineId', validate('deleteMedicineCase'), deleteMedicine);
 module.exports = router;

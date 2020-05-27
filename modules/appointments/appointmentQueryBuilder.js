@@ -1,6 +1,8 @@
 const DB = require('../../models');
 
 const appointmentList = async (req) => {
+  // console.log(data, 'ooooooooooooooooo');
+
   let query = {
     limit: req.query.limit || 10,
     page: req.query.page || 1,
@@ -13,6 +15,28 @@ const appointmentList = async (req) => {
     limit: query.limit,
     order: [[query.sortKey, query.sortOrder]],
   });
+  console.log(appointmentList.rows.appointment, 'popopo');
+  const data = await DB.appointment.findAll({
+    include: [
+      {
+        model: DB.patient,
+        where: {
+          id: DB.appointment.id,
+        },
+        required: false,
+      },
+    ],
+  });
+  const data = await DB.appointment.findAll({
+    include: {
+      model: DB.patient,
+      where: {
+        id: appointmentList.rows.patientId,
+      },
+    },
+  });
+  console.log(data, 'pll');
+
   return {
     metaData: {
       page: query.page,

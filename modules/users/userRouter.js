@@ -16,9 +16,13 @@ const {
   getSingleUser,
   editUser,
   deleteUser,
+  getDoctorList,
+  getLabTechnicianList,
+  userMedicineCount,
 } = require('./userService');
 
 router.get('/', authentication, authorization('Admin', 'Doctor'), getUserList);
+router.get('/doctors', getDoctorList);
 router.post(
   '/',
   authentication,
@@ -48,5 +52,8 @@ router.delete(
   validate('deleteUserCase'),
   deleteUser
 );
+// router.get('/counts', userMedicineCount);
+
+router.get('/doctors', getLabTechnicianList);
 
 module.exports = router;

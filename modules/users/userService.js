@@ -11,6 +11,31 @@ const getUserList = async (req, res, next) => {
     next(error);
   }
 };
+// const userMedicineCount = async (req, res, next) => {
+//   try {
+//     const UserList = await userQueryBulider.userMedicineCount(req);
+//     res.send(UserList);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+const getDoctorList = async (req, res, next) => {
+  try {
+    const UserList = await userQueryBulider.getDoctorList(req);
+    res.send(UserList);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getLabTechnicianList = async (req, res, next) => {
+  try {
+    const UserList = await userQueryBulider.getLabTechnicianList(req);
+    res.send(UserList);
+  } catch (error) {
+    next(error);
+  }
+};
 
 const getSingleUser = async (req, res, next) => {
   try {
@@ -80,4 +105,7 @@ module.exports = {
   createUser,
   editUser,
   deleteUser,
+  getDoctorList,
+  getLabTechnicianList,
+  // userMedicineCount,
 };
